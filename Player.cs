@@ -10,5 +10,17 @@ namespace Proiect_IA {
         public string name;
         public Color color;
         List<Piece> pieces = new List<Piece>();
+
+        public Player(string name, Color color) {
+            this.name = name;
+            this.color = color;
+            setPieces();
+        }
+
+        private void setPieces() {
+
+            Piece piece = new King(color);
+
+        }
     }
 }

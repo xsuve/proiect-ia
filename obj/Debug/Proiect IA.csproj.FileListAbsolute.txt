@@ -7,3 +7,4 @@ C:\Users\DxGod\source\repos\Proiect IA\obj\Debug\Proiect IA.csproj.GenerateResou
 C:\Users\DxGod\source\repos\Proiect IA\obj\Debug\Proiect IA.csproj.CoreCompileInputs.cache
 C:\Users\DxGod\source\repos\Proiect IA\obj\Debug\Proiect IA.exe
 C:\Users\DxGod\source\repos\Proiect IA\obj\Debug\Proiect IA.pdb
+C:\Users\DxGod\source\repos\Proiect IA\obj\Debug\Proiect_IA.Form1.resources

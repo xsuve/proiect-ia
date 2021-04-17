@@ -7,13 +7,13 @@ using System.Windows.Forms;
 
 namespace Proiect_IA {
     class Cell {
-        public string x { get; set; }
-        public int y { get; set; }
+        public int x { get; set; }
+        public string y { get; set; }
 
         public Panel panel;
 
-        Boolean isOccupied;
+        public  Boolean isOccupied;
 
-        Piece piece;
+        public Piece piece;
     }
 }

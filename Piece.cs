@@ -3,8 +3,12 @@
 namespace Proiect_IA {
     internal class Piece {
 
-        public Cell position;
         public Color color;
+        public Image image;
+
+        public Piece(Color color) {
+            this.color = color;
+        }
 
         public virtual void Move() {
 
