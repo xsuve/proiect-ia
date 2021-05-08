@@ -9,10 +9,13 @@ using System.Windows.Forms;
 namespace Proiect_IA {
     class Game {      
         static Box clickedBox = null;
+        static Boolean clicked = false;
+        private Player currentPlayer;
 
         private Form1 startingForm;
         static public Box[,] board = new Box[8,8];
         private List<Player> players = new List<Player>();
+       
         public Game(Form1 form) {
             startingForm = form;
             createTable();
@@ -22,14 +25,14 @@ namespace Proiect_IA {
         }
 
 
-        //private void startGame() {
-        //    players[0] = new Player("Marcel",Color.White);
-        //    Board.board[0, 0].isOccupied = true;
-        //    int i = 0;
-        //    while (!winner()) {
-        //        playerMove(players[++i%2]);
-        //    }
-        //}
+        private void startGame() {
+            players.Add(new Player("sugi", Color.Black));
+            players.Add(new Player("bei", Color.White));
+            int i = 0;
+            while (!winner()) {
+                playerMove(players[++i % 2]);
+            }
+        }
 
         private void playerMove(Player player) {
             throw new NotImplementedException();
@@ -52,26 +55,33 @@ namespace Proiect_IA {
         }
 
         internal void pieceClick( int i, int j) {
-            if (board[i, j].isOccupied && board[i, j].piece.color == currentPlayer.color) {
-                if (board[i, j].clicked) {
-                    board[i, j].clicked = false;
-                    //TO DO RESET TABLE Boxes
-                    box.BackColor = Color.Aquamarine;
+                if (clicked) { 
+
+                    if(clickedBox == board[i, j]) {
+                        ResetBoard();                     
+                    } else {
+                        board[i, j].SwithBoxes(clickedBox);
+                        //verificarePiesaAdversarPeBox();  TO DO
+                        ResetBoard();
+                    }
+
+                    clicked = false;
+                    clickedBox = null;
+
+                } else if (board[i, j].isOccupied) {
+
+                    clickedBox = board[i, j];
+                    clicked = true;
                 }
-                else {
-                                   
-                    if (!board[i,j].clicked) {
+               
+            
+        }
 
-                        board[i, j].clicked = true;
-                        board[i, j].piece.Move();
-                    }
-                    else {
-                        board[i, j].piece = clickedBox;
-                        clickedBox = new Box();
-
-                    }
-
-                    clicked = !clicked;
+        private void ResetBoard() {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    board[i, j].nextLegalMove = false;
+                    board[i, j].panel.BackColor = (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1) ? Color.White : Color.Black;
                 }
             }
         }

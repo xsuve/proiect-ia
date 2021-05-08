@@ -9,10 +9,8 @@ using System.Windows.Forms;
 namespace Proiect_IA {
    internal class King : Piece {
 
-        public King(Color color, Box box) : base(color, box) {
+        public King(Color color) : base(color) {
             image = Proiect_IA.Properties.Resources.Image1;
-            box.panel.BackgroundImage = image;
-            box.isOccupied = true;
         }
        
     }

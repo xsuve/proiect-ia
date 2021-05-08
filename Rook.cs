@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Proiect_IA {
     class Rook : Piece {
-        public Rook(Color color, Box box) :base(color, box) {
+        public Rook(Color color) :base(color) {
             image = Proiect_IA.Properties.Resources.Image1;
-            box.panel.BackgroundImage = image;
-            box.isOccupied = true;
         }
     }
 }

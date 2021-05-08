@@ -18,7 +18,7 @@ namespace Proiect_IA {
 
         public Piece piece;
 
-        public static Boolean clicked;
+        public Boolean nextLegalMove;
 
         public Box(int i, int j) {
 
@@ -29,12 +29,17 @@ namespace Proiect_IA {
             };          
             x = i + 1;
             y = Convert.ToChar('A' + j).ToString();
-            clicked = false;
             isOccupied = false;
+            nextLegalMove = false;
 
 
         }
 
+        public void AddPiece(Piece piece) {
+            this.piece = piece;
+            panel.BackgroundImage = piece.image;
+            isOccupied = true;
+        }
         static public void createBoundries(Form1 startingForm) {
             for (int i = 1; i <= 8; i++) {
                 Panel left = new Panel {
@@ -60,6 +65,13 @@ namespace Proiect_IA {
                 startingForm.Controls.Add(up);
             }     
             
+        }
+
+        public void SwithBoxes(Box clickedBox) {
+            panel.BackgroundImage = clickedBox.panel.BackgroundImage;
+            clickedBox.panel.BackgroundImage = null;
+            isOccupied = true;
+            piece = clickedBox.piece;
         }
     }    
 }

@@ -28,50 +28,65 @@ namespace Proiect_IA {
            
             for (int i = 0; i < 8; i++) {
                 pieces.Add(new Pawn(color));
-                Game.board[1, i].piece = pieces[pieces.Count - 1];
+                Game.board[1, i].AddPiece(pieces[pieces.Count - 1]);
             }
 
             pieces.Add(new Rook(color));
-            Game.board[0, 0].piece = pieces[pieces.Count - 1];
+            Game.board[0, 0].AddPiece(pieces[pieces.Count - 1]);
 
-            pieces.Add(new Knight(color, Game.board[0, 1]));
-            Game.board[1, i].piece = pieces[pieces.Count - 1];
+            pieces.Add(new Knight(color));
+            Game.board[0, 1].AddPiece(pieces[pieces.Count - 1]);
 
-            pieces.Add(new Bishop(color, Game.board[0, 2]));
-            Game.board[1, i].piece = pieces[pieces.Count - 1];
+            pieces.Add(new Bishop(color));
+            Game.board[0, 2].AddPiece(pieces[pieces.Count - 1]);
 
-            pieces.Add(new King(color, Game.board[0, 3]));
-            Game.board[1, i].piece = pieces[pieces.Count - 1];
+            pieces.Add(new King(color));
+            Game.board[0, 3].AddPiece(pieces[pieces.Count - 1]);
 
-            pieces.Add(new Queen(color, Game.board[0, 4]));
-            Game.board[1, i].piece = pieces[pieces.Count - 1];
+            pieces.Add(new Queen(color));
+            Game.board[0, 4].AddPiece(pieces[pieces.Count - 1]);
 
-            pieces.Add(new Bishop(color, Game.board[0, 5]));
-            Game.board[1, i].piece = pieces[pieces.Count - 1];
+            pieces.Add(new Bishop(color));
+            Game.board[0, 5].AddPiece(pieces[pieces.Count - 1]);
 
-            pieces.Add(new Knight(color, Game.board[0, 6]));
-            Game.board[1, i].piece = pieces[pieces.Count - 1];
+            pieces.Add(new Knight(color));
+            Game.board[0, 6].AddPiece(pieces[pieces.Count - 1]);
 
-            pieces.Add(new Rook(color, Game.board[0, 7]));
-            Game.board[1, i].piece = pieces[pieces.Count - 1];
+            pieces.Add(new Rook(color));
+            Game.board[0, 7].AddPiece(pieces[pieces.Count - 1]);
 
         }
 
         private void blackPieces() {
-            
-            for (int i = 0; i < 8; i++) {
-                pieces.Add(new Pawn(color, Game.board[6, i]));
-            }
-            pieces.Add(new Rook(color, Game.board[7, 0]));
-            pieces.Add(new Knight(color, Game.board[7, 1]));
-            pieces.Add(new Bishop(color, Game.board[7, 2]));
-            pieces.Add(new King(color, Game.board[7, 3]));
-            pieces.Add(new Queen(color, Game.board[7, 4]));
-            pieces.Add(new Bishop(color, Game.board[7, 5]));
-            pieces.Add(new Knight(color, Game.board[7, 6]));
-            pieces.Add(new Rook(color, Game.board[7, 7]));
 
-            
+            for (int i = 0; i < 8; i++) {
+                pieces.Add(new Pawn(color));
+                Game.board[6, i].AddPiece(pieces[pieces.Count - 1]);
+            }
+
+            pieces.Add(new Rook(color));
+            Game.board[7, 0].AddPiece(pieces[pieces.Count - 1]);
+
+            pieces.Add(new Knight(color));
+            Game.board[7, 1].AddPiece(pieces[pieces.Count - 1]);
+
+            pieces.Add(new Bishop(color));
+            Game.board[7, 2].AddPiece(pieces[pieces.Count - 1]);
+
+            pieces.Add(new King(color));
+            Game.board[7, 3].AddPiece(pieces[pieces.Count - 1]);
+
+            pieces.Add(new Queen(color));
+            Game.board[7, 4].AddPiece(pieces[pieces.Count - 1]);
+
+            pieces.Add(new Bishop(color));
+            Game.board[7, 5].AddPiece(pieces[pieces.Count - 1]);
+
+            pieces.Add(new Knight(color));
+            Game.board[7, 6].AddPiece( pieces[pieces.Count - 1]);
+
+            pieces.Add(new Rook(color));
+            Game.board[7, 7].AddPiece(pieces[pieces.Count - 1]);
 
         }
     }

@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Proiect_IA {
     class Queen : Piece {
-        public Queen(Color color, Box box) :base(color, box) {
+        public Queen(Color color) :base(color) {
             image = Proiect_IA.Properties.Resources.Image1;
-            box.panel.BackgroundImage = image;
-            box.isOccupied = true;
+
         }
     }
 }

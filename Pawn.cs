@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Proiect_IA {
     internal class Pawn : Piece {
-        public Pawn(Color color, Box box) :base(color, box) {
+        public Pawn(Color color) :base(color) {
             image = Proiect_IA.Properties.Resources.Image1;
-            box.panel.BackgroundImage = image;
-            box.isOccupied = true;
+
         }
     }
 }

@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Proiect_IA {
     class Knight : Piece {
-        public Knight(Color color, Box box) : base(color, box) {
+        public Knight(Color color) : base(color) {
             image = Proiect_IA.Properties.Resources.Image1;
-            box.panel.BackgroundImage = image;
-            box.isOccupied = true;
+
         }
     }
 }
