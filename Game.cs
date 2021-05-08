@@ -55,26 +55,22 @@ namespace Proiect_IA {
         }
 
         internal void pieceClick( int i, int j) {
-                if (clicked) { 
-
-                    if(clickedBox == board[i, j]) {
-                        ResetBoard();                     
-                    } else {
-                        board[i, j].SwithBoxes(clickedBox);
-                        //verificarePiesaAdversarPeBox();  TO DO
-                        ResetBoard();
-                    }
-
-                    clicked = false;
-                    clickedBox = null;
-
-                } else if (board[i, j].isOccupied) {
-
-                    clickedBox = board[i, j];
-                    clicked = true;
+            if (clicked) { 
+                if(clickedBox == board[i, j]) {
+                    ResetBoard();                     
+                } else {
+                    board[i, j].SwithBoxes(clickedBox);
+                    //verificarePiesaAdversarPeBox();  TO DO
+                    ResetBoard();
                 }
-               
-            
+
+                clicked = false;
+                clickedBox = null;
+            } else if (board[i, j].isOccupied) {
+                clickedBox = board[i, j];
+                clicked = true;
+                board[i, j].piece.Move(i, j, board);
+            }
         }
 
         private void ResetBoard() {

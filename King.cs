@@ -10,8 +10,7 @@ namespace Proiect_IA {
     internal class King : Piece {
 
         public King(Color color) : base(color) {
-            image = Proiect_IA.Properties.Resources.Image1;
-            //aDAS
+            image = color == Color.White ? Proiect_IA.Properties.Resources.king_w : Proiect_IA.Properties.Resources.king_b;
         }
 
         public override void Move(int Xcoord, int Ycoord, Box[,] board) {

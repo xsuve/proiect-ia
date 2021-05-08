@@ -8,9 +8,7 @@ using System.Threading.Tasks;
 namespace Proiect_IA {
     class Queen : Piece {
         public Queen(Color color) :base(color) {
-            image = Proiect_IA.Properties.Resources.Image1;
-            //DSF
-
+            image = color == Color.White ? Proiect_IA.Properties.Resources.queen_w : Proiect_IA.Properties.Resources.queen_b;
         }
 
         public override void Move(int Xcoord, int Ycoord, Box[,] board) {
