@@ -10,6 +10,7 @@ namespace Proiect_IA {
         public Pawn(Color color) :base(color) {
             image = Proiect_IA.Properties.Resources.Image1;
 
+
         }
 
         public override void Move(int Xcoord, int Ycoord, Box[,] board ) {
