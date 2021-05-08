@@ -8,3 +8,12 @@ C:\Users\DxGod\source\repos\Proiect IA\obj\Debug\Proiect IA.csproj.CoreCompileIn
 C:\Users\DxGod\source\repos\Proiect IA\obj\Debug\Proiect IA.exe
 C:\Users\DxGod\source\repos\Proiect IA\obj\Debug\Proiect IA.pdb
 C:\Users\DxGod\source\repos\Proiect IA\obj\Debug\Proiect_IA.Form1.resources
+C:\Users\Simona\Desktop\George\Inteligenta artificiala\Proiect\proiect-ia\bin\Debug\Proiect IA.exe.config
+C:\Users\Simona\Desktop\George\Inteligenta artificiala\Proiect\proiect-ia\bin\Debug\Proiect IA.exe
+C:\Users\Simona\Desktop\George\Inteligenta artificiala\Proiect\proiect-ia\bin\Debug\Proiect IA.pdb
+C:\Users\Simona\Desktop\George\Inteligenta artificiala\Proiect\proiect-ia\obj\Debug\Proiect IA.csprojAssemblyReference.cache
+C:\Users\Simona\Desktop\George\Inteligenta artificiala\Proiect\proiect-ia\obj\Debug\Proiect_IA.Form1.resources
+C:\Users\Simona\Desktop\George\Inteligenta artificiala\Proiect\proiect-ia\obj\Debug\Proiect_IA.Properties.Resources.resources
+C:\Users\Simona\Desktop\George\Inteligenta artificiala\Proiect\proiect-ia\obj\Debug\Proiect IA.csproj.GenerateResource.cache
+C:\Users\Simona\Desktop\George\Inteligenta artificiala\Proiect\proiect-ia\obj\Debug\Proiect IA.exe
+C:\Users\Simona\Desktop\George\Inteligenta artificiala\Proiect\proiect-ia\obj\Debug\Proiect IA.pdb

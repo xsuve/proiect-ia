@@ -10,7 +10,7 @@ namespace Proiect_IA {
    internal class King : Piece {
 
         public King(Color color) : base(color) {
-            image = Proiect_IA.Properties.Resources.Image1;
+            image = color == Color.White ? Proiect_IA.Properties.Resources.king_w : Proiect_IA.Properties.Resources.king_b;
         }
        
     }

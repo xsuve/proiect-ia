@@ -91,7 +91,40 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Image1.bmp" />
+    <None Include="Resources\bishop-b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bishop-w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\king-b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\king-w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knight-b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knight-w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pawn-b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pawn-w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\queen-b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\queen-w.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rook-b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rook-w.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

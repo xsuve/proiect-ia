@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Proiect_IA {
     class Rook : Piece {
         public Rook(Color color) :base(color) {
-            image = Proiect_IA.Properties.Resources.Image1;
+            image = color == Color.White ? Proiect_IA.Properties.Resources.rook_w : Proiect_IA.Properties.Resources.rook_b;
         }
     }
 }
