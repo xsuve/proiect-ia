@@ -70,8 +70,12 @@ namespace Proiect_IA {
         public void SwithBoxes(Box clickedBox) {
             panel.BackgroundImage = clickedBox.panel.BackgroundImage;
             clickedBox.panel.BackgroundImage = null;
+
             isOccupied = true;
+            clickedBox.isOccupied = false;
+
             piece = clickedBox.piece;
+            clickedBox.piece = null;
         }
     }    
 }
