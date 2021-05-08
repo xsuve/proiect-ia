@@ -68,10 +68,10 @@ namespace Proiect_IA {
                     clicked = false;
                     clickedBox = null;
 
-                } else if (board[i, j].isOccupied) {
-
+                } else if (board[i, j].isOccupied) {                    
                     clickedBox = board[i, j];
                     clicked = true;
+                    board[i, j].piece.Move(i,j,board);
                 }
                
             
