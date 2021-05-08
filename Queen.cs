@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Proiect_IA {
     class Queen : Piece {
-        public Queen(Color color):base(color) {
+        public Queen(Color color) :base(color) {
+            image = Proiect_IA.Properties.Resources.Image1;
 
         }
     }

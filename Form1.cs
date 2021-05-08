@@ -10,9 +10,15 @@ using System.Windows.Forms;
 
 namespace Proiect_IA {
     public partial class Form1 : Form {
+        Game startGame;
+
         public Form1() {
             InitializeComponent();
-            Game startGame = new Game(this);
+             startGame = new Game(this);
+        }
+
+        public void Panel_Click(object sender, EventArgs e, int i, int j) {           
+            startGame.pieceClick(i,j);
         }
     }
 }
