@@ -18,12 +18,12 @@ namespace Proiect_IA {
             if (Xcoord + 1 < boardSize)
                 if (board[Xcoord + 1, Ycoord].isOccupied == false) {
                     board[Xcoord + 1, Ycoord].nextLegalMove = true;
-                    board[Xcoord + 1, Ycoord].panel.BackColor = Color.Green;
+                    board[Xcoord + 1, Ycoord].panel.BackColor = Color.DarkSeaGreen;
 
                 }
                 else if (board[Xcoord + 1, Ycoord].piece.color != color) {
                     board[Xcoord + 1, Ycoord].nextLegalMove = true;
-                    board[Xcoord + 1, Ycoord].panel.BackColor = Color.Green;
+                    board[Xcoord + 1, Ycoord].panel.BackColor = Color.DarkSeaGreen;
 
                 }
 
@@ -32,12 +32,12 @@ namespace Proiect_IA {
             if (Xcoord - 1 >= 0)
                 if (board[Xcoord - 1, Ycoord].isOccupied == false) {
                     board[Xcoord - 1, Ycoord].nextLegalMove = true;
-                    board[Xcoord - 1, Ycoord].panel.BackColor = Color.Green;
+                    board[Xcoord - 1, Ycoord].panel.BackColor = Color.DarkSeaGreen;
 
                 }
                 else if (board[Xcoord - 1, Ycoord].piece.color != color) {
                     board[Xcoord - 1, Ycoord].nextLegalMove = true;
-                    board[Xcoord - 1, Ycoord].panel.BackColor = Color.Green;
+                    board[Xcoord - 1, Ycoord].panel.BackColor = Color.DarkSeaGreen;
 
                 }
 
@@ -45,12 +45,12 @@ namespace Proiect_IA {
             //right move
             if (Ycoord + 1 < boardSize)
                 if (board[Xcoord, Ycoord + 1].isOccupied == false) {
-                    board[Xcoord, Ycoord + 1].panel.BackColor = Color.Green;
+                    board[Xcoord, Ycoord + 1].panel.BackColor = Color.DarkSeaGreen;
                     board[Xcoord, Ycoord + 1].nextLegalMove = true;
 
                 }
                 else if (board[Xcoord, Ycoord + 1].piece.color != color) {
-                    board[Xcoord, Ycoord + 1].panel.BackColor = Color.Green;
+                    board[Xcoord, Ycoord + 1].panel.BackColor = Color.DarkSeaGreen;
                     board[Xcoord, Ycoord + 1].nextLegalMove = true;
 
                 }
@@ -59,12 +59,12 @@ namespace Proiect_IA {
             //left move
             if (Ycoord - 1 >= 0)
                 if (board[Xcoord, Ycoord - 1].isOccupied == false) {
-                    board[Xcoord, Ycoord - 1].panel.BackColor = Color.Green;
+                    board[Xcoord, Ycoord - 1].panel.BackColor = Color.DarkSeaGreen;
                     board[Xcoord, Ycoord - 1].nextLegalMove = true;
 
                 }
                 else if (board[Xcoord, Ycoord - 1].piece.color != color) {
-                    board[Xcoord, Ycoord - 1].panel.BackColor = Color.Green;
+                    board[Xcoord, Ycoord - 1].panel.BackColor = Color.DarkSeaGreen;
                     board[Xcoord, Ycoord - 1].nextLegalMove = true;
 
                 }
@@ -73,12 +73,12 @@ namespace Proiect_IA {
             //down right move
             if (Xcoord + 1 < boardSize && Ycoord + 1 < boardSize)
                 if (board[Xcoord + 1, Ycoord + 1].isOccupied == false) {
-                    board[Xcoord + 1, Ycoord + 1].panel.BackColor = Color.Green;
+                    board[Xcoord + 1, Ycoord + 1].panel.BackColor = Color.DarkSeaGreen;
                     board[Xcoord + 1, Ycoord + 1].nextLegalMove = true;
 
                 }
                 else if (board[Xcoord + 1, Ycoord + 1].piece.color != color) {
-                    board[Xcoord + 1, Ycoord + 1].panel.BackColor = Color.Green;
+                    board[Xcoord + 1, Ycoord + 1].panel.BackColor = Color.DarkSeaGreen;
                     board[Xcoord + 1, Ycoord + 1].nextLegalMove = true;
 
                 }
@@ -87,12 +87,12 @@ namespace Proiect_IA {
             //upper right move
             if (Xcoord - 1 >= 0 && Ycoord + 1 < boardSize)
                 if (board[Xcoord - 1, Ycoord + 1].isOccupied == false) {
-                    board[Xcoord - 1, Ycoord + 1].panel.BackColor = Color.Green;
+                    board[Xcoord - 1, Ycoord + 1].panel.BackColor = Color.DarkSeaGreen;
                     board[Xcoord - 1, Ycoord + 1].nextLegalMove = true;
 
                 }
                 else if (board[Xcoord - 1, Ycoord + 1].piece.color != color) {
-                    board[Xcoord - 1, Ycoord + 1].panel.BackColor = Color.Green;
+                    board[Xcoord - 1, Ycoord + 1].panel.BackColor = Color.DarkSeaGreen;
                     board[Xcoord - 1, Ycoord + 1].nextLegalMove = true;
 
                 }
@@ -101,12 +101,12 @@ namespace Proiect_IA {
             //down left move
             if (Xcoord + 1 < boardSize && Ycoord - 1 >= 0)
                 if (board[Xcoord + 1, Ycoord - 1].isOccupied == false) {
-                    board[Xcoord + 1, Ycoord - 1].panel.BackColor = Color.Green;
+                    board[Xcoord + 1, Ycoord - 1].panel.BackColor = Color.DarkSeaGreen;
                     board[Xcoord + 1, Ycoord - 1].nextLegalMove = true;
 
                 }
                 else  if (board[Xcoord + 1, Ycoord - 1].piece.color != color) {
-                    board[Xcoord + 1, Ycoord - 1].panel.BackColor = Color.Green;
+                    board[Xcoord + 1, Ycoord - 1].panel.BackColor = Color.DarkSeaGreen;
                     board[Xcoord + 1, Ycoord - 1].nextLegalMove = true;
 
                 }
@@ -114,12 +114,12 @@ namespace Proiect_IA {
             //upper left move
             if (Xcoord - 1 >= 0 && Ycoord - 1 >= 0)
                 if (board[Xcoord - 1, Ycoord - 1].isOccupied == false) {
-                    board[Xcoord - 1, Ycoord - 1].panel.BackColor = Color.Green;
+                    board[Xcoord - 1, Ycoord - 1].panel.BackColor = Color.DarkSeaGreen;
                     board[Xcoord - 1, Ycoord - 1].nextLegalMove = true;
 
                 }
                 else  if (board[Xcoord - 1, Ycoord - 1].piece.color != color) {
-                    board[Xcoord - 1, Ycoord - 1].panel.BackColor = Color.Green;
+                    board[Xcoord - 1, Ycoord - 1].panel.BackColor = Color.DarkSeaGreen;
                     board[Xcoord - 1, Ycoord - 1].nextLegalMove = true;
 
                 }

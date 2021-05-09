@@ -16,12 +16,12 @@ namespace Proiect_IA {
             for (int i = 1; i < boardSize; i++)
                 if (Xcoord + i < boardSize && Ycoord + i < boardSize)
                     if (board[Xcoord + i, Ycoord + i].isOccupied == false) {
-                        board[Xcoord + i, Ycoord + i].panel.BackColor = Color.Green;
+                        board[Xcoord + i, Ycoord + i].panel.BackColor = Color.DarkSeaGreen;
                         board[Xcoord + i, Ycoord + i].nextLegalMove = true;
                     }
                     else
                         if (board[Xcoord + i, Ycoord + i].piece.color != color) {
-                        board[Xcoord + i, Ycoord + i].panel.BackColor = Color.Green;
+                        board[Xcoord + i, Ycoord + i].panel.BackColor = Color.DarkSeaGreen;
                         board[Xcoord + i, Ycoord + i].nextLegalMove = true;
                         break;
                     }
@@ -35,12 +35,12 @@ namespace Proiect_IA {
             for (int i = 1; i < boardSize; i++)
                 if (Xcoord - i >= 0 && Ycoord + i < boardSize)
                     if (board[Xcoord - i, Ycoord + i].isOccupied == false) {
-                        board[Xcoord - i, Ycoord + i].panel.BackColor = Color.Green;
+                        board[Xcoord - i, Ycoord + i].panel.BackColor = Color.DarkSeaGreen;
                         board[Xcoord - i, Ycoord + i].nextLegalMove = true;
                     }
                     else
                         if (board[Xcoord - i, Ycoord + i].piece.color != color) {
-                        board[Xcoord - i, Ycoord + i].panel.BackColor = Color.Green;
+                        board[Xcoord - i, Ycoord + i].panel.BackColor = Color.DarkSeaGreen;
                         board[Xcoord - i, Ycoord + i].nextLegalMove = true;
                         break;
                     }
@@ -54,10 +54,10 @@ namespace Proiect_IA {
             for (int i = 1; i < boardSize; i++)
                 if (Xcoord + i < boardSize && Ycoord - i >= 0)
                     if (board[Xcoord + i, Ycoord - i].isOccupied == false) {
-                        board[Xcoord + i, Ycoord - i].panel.BackColor = Color.Green;
+                        board[Xcoord + i, Ycoord - i].panel.BackColor = Color.DarkSeaGreen;
                         board[Xcoord + i, Ycoord - i].nextLegalMove = true;
                     } else if (board[Xcoord + i, Ycoord - i].piece.color != color) {
-                        board[Xcoord + i, Ycoord - i].panel.BackColor = Color.Green;
+                        board[Xcoord + i, Ycoord - i].panel.BackColor = Color.DarkSeaGreen;
                         board[Xcoord + i, Ycoord - i].nextLegalMove = true;
                         break;
                     } 
@@ -71,12 +71,12 @@ namespace Proiect_IA {
             for (int i = 1; i < boardSize; i++)
                 if (Xcoord - i >= 0 && Ycoord - i >= 0)
                     if (board[Xcoord - i, Ycoord - i].isOccupied == false) {
-                        board[Xcoord - i, Ycoord - i].panel.BackColor = Color.Green;
+                        board[Xcoord - i, Ycoord - i].panel.BackColor = Color.DarkSeaGreen;
                         board[Xcoord - i, Ycoord - i].nextLegalMove = true;
                     }
                     else
                         if (board[Xcoord - i, Ycoord - i].piece.color != color) {
-                        board[Xcoord - i, Ycoord - i].panel.BackColor = Color.Green;
+                        board[Xcoord - i, Ycoord - i].panel.BackColor = Color.DarkSeaGreen;
                         board[Xcoord - i, Ycoord - i].nextLegalMove = true;
                         break;
                     }

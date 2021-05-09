@@ -25,7 +25,7 @@ namespace Proiect_IA {
             panel = new Panel {
                 Location = new System.Drawing.Point(( j+1 ) * boxSize, (8-i) * boxSize),
                 Size = new System.Drawing.Size(boxSize, boxSize),
-                BackColor = (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1) ? Color.White : Color.Black
+                BackColor = (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1) ? Color.BurlyWood : Color.Moccasin
             };          
             x = i + 1;
             y = Convert.ToChar('A' + j).ToString();
@@ -45,11 +45,13 @@ namespace Proiect_IA {
                 Panel left = new Panel {
                     Location = new System.Drawing.Point(0, i * 75),
                     Size = new System.Drawing.Size(75, 75),
-                    BackColor = Color.LightGray                   
+                    BackColor = Color.LightGray
                 };
                 left.Controls.Add(new Label {
-                    Location = new System.Drawing.Point(37, 37),
-                    Text = (9-i).ToString() 
+                    Location = new System.Drawing.Point(30, 30),
+                    Text = (9-i).ToString(),
+                    Font = new Font("Arial", 12, FontStyle.Bold),
+                    ForeColor = Color.Gray
                 });
                 startingForm.Controls.Add(left);
 
@@ -59,12 +61,38 @@ namespace Proiect_IA {
                     BackColor = Color.LightGray
                 };
                 up.Controls.Add(new Label {
-                    Location = new System.Drawing.Point(37, 37),
-                    Text = Convert.ToChar('A' + i - 1).ToString() 
+                    Location = new System.Drawing.Point(30, 30),
+                    Text = Convert.ToChar('A' + i - 1).ToString(),
+                    Font = new Font("Arial", 12, FontStyle.Bold),
+                    ForeColor = Color.Gray
                 });
                 startingForm.Controls.Add(up);
+
+                // Colt
+                Panel corner = new Panel {
+                    Location = new System.Drawing.Point(0, 0),
+                    Size = new System.Drawing.Size(75, 75),
+                    BackColor = Color.LightGray
+                };
+                startingForm.Controls.Add(corner);
             }     
             
+        }
+
+        static public void createHostageJail(Form1 startingForm) {
+            Panel player1Jail = new Panel {
+                Location = new System.Drawing.Point(9 * 75, 75),
+                Size = new System.Drawing.Size(5 * 75, 75),
+                BackColor = Color.LightGray
+            };
+            startingForm.Controls.Add(player1Jail);
+
+            Panel player2Jail = new Panel {
+                Location = new System.Drawing.Point(10 * 75, 7 * 75),
+                Size = new System.Drawing.Size(3 * 75, 75),
+                BackColor = Color.LightGray
+            };
+            startingForm.Controls.Add(player2Jail);
         }
 
         public void SwithBoxes(Box clickedBox) {

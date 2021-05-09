@@ -35,6 +35,7 @@ namespace Proiect_IA {
 
         public void createTable() {
             Box.createBoundries(startingForm);
+
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     int h = i, l = j;
@@ -42,7 +43,10 @@ namespace Proiect_IA {
                     board[i, j].panel.Click  += (sender, EventArgs) => { startingForm.Panel_Click(sender, EventArgs, h, l); };
                     startingForm.Controls.Add(board[i, j].panel);
                 }
-            }       
+            }
+
+            // Jail
+            Box.createHostageJail(startingForm);
         }
 
         internal void pieceClick( int xCoord, int yCoord) {
@@ -58,7 +62,7 @@ namespace Proiect_IA {
                 clickedBox = board[xCoord, yCoord];
                 clicked = true;
                 board[xCoord, yCoord].piece.Move(xCoord, yCoord, board);
-                board[xCoord, yCoord].panel.BackColor = Color.Cyan;
+                board[xCoord, yCoord].panel.BackColor = Color.Khaki;
             }
         }
         public void secondClick(int xCoord, int yCoord) {
@@ -85,7 +89,7 @@ namespace Proiect_IA {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     board[i, j].nextLegalMove = false;
-                    board[i, j].panel.BackColor = (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1) ? Color.White : Color.Black;
+                    board[i, j].panel.BackColor = (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1) ? Color.BurlyWood : Color.Moccasin;
                 }
             }
         }
@@ -105,8 +109,6 @@ namespace Proiect_IA {
 
                 }
             }
-
-            MessageBox.Show("MA SUGI DE PULA CIOCAN");
         }
     }
 }
