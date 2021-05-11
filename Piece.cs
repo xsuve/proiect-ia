@@ -8,8 +8,9 @@ namespace Proiect_IA {
         public int priority;
         protected int boardSize = 8;
 
-        public Piece(Color color) {
+        public Piece(Color color, int priority) {
             this.color = color;
+            this.priority = priority;
         }
 
         public virtual void Move(int Xcoord, int Ycoord, Box[,] board) {

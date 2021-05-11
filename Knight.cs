@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Proiect_IA {
     class Knight : Piece {
-        public Knight(Color color) : base(color) {
+        public Knight(Color color, int priority) : base(color, priority) {
             image = color == Color.White ? Proiect_IA.Properties.Resources.knight_w : Proiect_IA.Properties.Resources.knight_b;
+            priority = 2;
         }
 
         public override void Move(int Xcoord, int Ycoord, Box[,] board) {

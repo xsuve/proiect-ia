@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace Proiect_IA {
     class Queen : Piece {
-        public Queen(Color color) :base(color) {
+        public Queen(Color color, int priority) : base(color, priority) {
             image = color == Color.White ? Proiect_IA.Properties.Resources.queen_w : Proiect_IA.Properties.Resources.queen_b;
+            priority = 4;
         }
 
         public override void Move(int Xcoord, int Ycoord, Box[,] board) {
-            Rook MyRook = new Rook(color);
-            Bishop MyBishop = new Bishop(color);
+            Rook MyRook = new Rook(color, priority);
+            Bishop MyBishop = new Bishop(color, priority);
             MyBishop.Move(Xcoord, Ycoord, board);
             MyRook.Move(Xcoord, Ycoord, board);
         }

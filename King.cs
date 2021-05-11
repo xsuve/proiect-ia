@@ -9,8 +9,9 @@ using System.Windows.Forms;
 namespace Proiect_IA {
     internal class King : Piece {
 
-        public King(Color color) : base(color) {
+        public King(Color color, int priority) : base(color, priority) {
             image = color == Color.White ? Proiect_IA.Properties.Resources.king_w : Proiect_IA.Properties.Resources.king_b;
+            priority = 5;
         }
 
         public override void Move(int Xcoord, int Ycoord, Box[,] board) {

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Proiect_IA {
     class Rook : Piece {
-        public Rook(Color color) : base(color) {
+        public Rook(Color color, int priority) : base(color, priority) {
             image = color == Color.White ? Proiect_IA.Properties.Resources.rook_w : Proiect_IA.Properties.Resources.rook_b;
+            priority = 3;
         }
 
         public override void Move(int Xcoord, int Ycoord, Box[,] board) {

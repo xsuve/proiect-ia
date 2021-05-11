@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Proiect_IA {
     internal class Pawn : Piece {
-        public Pawn(Color color) :base(color) {
+        public Pawn(Color color, int priority) : base(color, priority) {
             image = color == Color.White ? Proiect_IA.Properties.Resources.pawn_w : Proiect_IA.Properties.Resources.pawn_b;
+            priority = 1;
         }
 
         public override void Move(int Xcoord, int Ycoord, Box[,] board) {

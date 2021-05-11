@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Proiect_IA {
     internal class Bishop : Piece {
-        public Bishop(Color color) :base(color) {
+        public Bishop(Color color, int priority) : base(color, priority) {
             image = color == Color.White ? Proiect_IA.Properties.Resources.bishop_w : Proiect_IA.Properties.Resources.bishop_b;
+            priority = 2;
         }
 
         public override void Move(int Xcoord, int Ycoord, Box[,] board) {
