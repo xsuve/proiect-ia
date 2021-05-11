@@ -13,6 +13,7 @@ namespace Proiect_IA {
         static int index = 0;
         static Box clickedBox = null;
         static Boolean clicked = false;
+        static Boolean jailClicked = false;
         private Player currentPlayer;
 
         private Form1 startingForm;
@@ -26,11 +27,63 @@ namespace Proiect_IA {
             players.Add(new Player("alb", Color.White));
             players.Add(new Player("negru", Color.Black));
             currentPlayer = players[index++ % 2];
+
+            createJails();
         }
 
         private bool winner() { 
           
             return false;
+        }
+
+        public void createJails() {
+            // Airports
+            for (int i = 1; i <= 5; i++) {
+                Box box = new Box(7, 7 + i);
+                box.panel.BackColor = Color.Silver;
+                startingForm.Controls.Add(box.panel);
+                players[1].airport.Add(box);
+            }
+            for (int i = 1; i <= 5; i++) {
+                Box box = new Box(2, 7 + i);
+                box.panel.BackColor = Color.Silver;
+                startingForm.Controls.Add(box.panel);
+                players[0].airport.Add(box);
+            }
+
+            // Jails
+            for (int i = 1; i <= 10; i++) {
+                int k = i - 1;
+                //Box box = new Box(6, 7 + i);
+                Box box;
+                if (i > 5) {
+                    box = new Box(5, 7 + (i - 5));
+                } else {
+                    box = new Box(6, 7 + i);
+                }
+
+                box.panel.BackColor = Color.DarkGray;
+                box.panel.Click += (sender, EventArgs) => { startingForm.Jail_Click(sender, EventArgs, k, currentPlayer); };
+
+                startingForm.Controls.Add(box.panel);
+                players[1].jails.Add(box);
+            }
+            for (int i = 1; i <= 10; i++) {
+                int k = i - 1;
+                //Box box = new Box(0, 7 + i);
+                Box box;
+                if (i > 5) {
+                    box = new Box(0, 7 + (i - 5));
+                } else {
+                    box = new Box(1, 7 + i);
+                }
+
+                box.panel.BackColor = Color.DarkGray;
+                box.panel.Click += (sender, EventArgs) => { startingForm.Jail_Click(sender, EventArgs, k, currentPlayer); };
+
+                startingForm.Controls.Add(box.panel);
+                players[0].jails.Add(box);
+            }
         }
 
         public void createTable() {
@@ -40,16 +93,13 @@ namespace Proiect_IA {
                 for (int j = 0; j < 8; j++) {
                     int h = i, l = j;
                     board[i, j] = new Box(i, j);
-                    board[i, j].panel.Click  += (sender, EventArgs) => { startingForm.Panel_Click(sender, EventArgs, h, l); };
+                    board[i, j].panel.Click += (sender, EventArgs) => { startingForm.Panel_Click(sender, EventArgs, h, l); };
                     startingForm.Controls.Add(board[i, j].panel);
                 }
             }
-
-            // Jail
-            Box.createHostageJail(startingForm);
         }
 
-        internal void pieceClick( int xCoord, int yCoord) {
+        public void pieceClick(int xCoord, int yCoord) {
             if (!winner()) 
                 if (clicked) {
                     secondClick(xCoord, yCoord);
@@ -57,31 +107,57 @@ namespace Proiect_IA {
                     firstClick(xCoord, yCoord);
                 }            
         }
+
+        public void jailClick(int i, Player player) {
+            if (!jailClicked) {
+                if(player.jails[i].piece != null && currentPlayer.color == player.color) {
+                    player.jails[i].panel.BackColor = Color.Khaki;
+                    clickedBox = player.jails[i];
+                }
+
+                jailClicked = true;
+            } else {
+                player.jails[i].panel.BackColor = Color.DarkGray;
+                jailClicked = false;
+            }
+        }
+
         public void firstClick(int xCoord, int yCoord) {
-            if (board[xCoord, yCoord].isOccupied && currentPlayer.color == board[xCoord, yCoord].piece.color) {
-                clickedBox = board[xCoord, yCoord];
-                clicked = true;
-                board[xCoord, yCoord].piece.Move(xCoord, yCoord, board);
-                board[xCoord, yCoord].panel.BackColor = Color.Khaki;
+            if (jailClicked) {
+                if (!board[xCoord, yCoord].isOccupied) {
+                    board[xCoord, yCoord].SwitchBoxes(clickedBox);
+                    clickedBox.panel.BackColor = Color.DarkGray;
+                    currentPlayer = players[index++ % 2];
+                    jailClicked = false;
+                }
+            } else {
+                if (board[xCoord, yCoord].isOccupied && currentPlayer.color == board[xCoord, yCoord].piece.color) {
+                    clickedBox = board[xCoord, yCoord];
+                    clicked = true;
+                    board[xCoord, yCoord].piece.Move(xCoord, yCoord, board);
+                    board[xCoord, yCoord].panel.BackColor = Color.Khaki;
+                }
             }
         }
         public void secondClick(int xCoord, int yCoord) {
             if (clickedBox == board[xCoord, yCoord]) {
-
                 ResetBoard();
                 clicked = false;
                 clickedBox = null;
 
             } else if(board[xCoord, yCoord].nextLegalMove){
+                if(board[xCoord, yCoord].piece != null) {
+                    board[xCoord, yCoord].addToJail(players[index % 2]);
+                }
 
-                board[xCoord, yCoord].SwithBoxes(clickedBox);  
+                board[xCoord, yCoord].SwitchBoxes(clickedBox);  
                 ResetBoard();
                 //schimbare rand la jucatori
                 currentPlayer = players[index++ % 2];
 
                 clicked = false;
                 clickedBox = null;
-                removeClickEvents();
+                //removeClickEvents();
                 //verificarePiesaAdversarPeBox();  TO DO
             } 
         }

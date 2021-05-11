@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Proiect_IA {
-    class Box {
-        private const int  boxSize = 75;
+    public class Box {
+        private const int boxSize = 75;
         public int x { get; set; }
         public string y { get; set; }
 
@@ -21,7 +21,6 @@ namespace Proiect_IA {
         public Boolean nextLegalMove;
 
         public Box(int i, int j) {
-
             panel = new Panel {
                 Location = new System.Drawing.Point(( j+1 ) * boxSize, (8-i) * boxSize),
                 Size = new System.Drawing.Size(boxSize, boxSize),
@@ -31,8 +30,6 @@ namespace Proiect_IA {
             y = Convert.ToChar('A' + j).ToString();
             isOccupied = false;
             nextLegalMove = false;
-
-
         }
 
         public void AddPiece(Piece piece) {
@@ -43,8 +40,8 @@ namespace Proiect_IA {
         static public void createBoundries(Form1 startingForm) {
             for (int i = 1; i <= 8; i++) {
                 Panel left = new Panel {
-                    Location = new System.Drawing.Point(0, i * 75),
-                    Size = new System.Drawing.Size(75, 75),
+                    Location = new System.Drawing.Point(0, i * boxSize),
+                    Size = new System.Drawing.Size(boxSize, boxSize),
                     BackColor = Color.LightGray
                 };
                 left.Controls.Add(new Label {
@@ -56,8 +53,8 @@ namespace Proiect_IA {
                 startingForm.Controls.Add(left);
 
                 Panel up = new Panel {
-                    Location = new System.Drawing.Point(i * 75, 0),
-                    Size = new System.Drawing.Size(75, 75),
+                    Location = new System.Drawing.Point(i * boxSize, 0),
+                    Size = new System.Drawing.Size(boxSize, boxSize),
                     BackColor = Color.LightGray
                 };
                 up.Controls.Add(new Label {
@@ -71,7 +68,7 @@ namespace Proiect_IA {
                 // Colt
                 Panel corner = new Panel {
                     Location = new System.Drawing.Point(0, 0),
-                    Size = new System.Drawing.Size(75, 75),
+                    Size = new System.Drawing.Size(boxSize, boxSize),
                     BackColor = Color.LightGray
                 };
                 startingForm.Controls.Add(corner);
@@ -79,23 +76,7 @@ namespace Proiect_IA {
             
         }
 
-        static public void createHostageJail(Form1 startingForm) {
-            Panel player1Jail = new Panel {
-                Location = new System.Drawing.Point(9 * 75, 75),
-                Size = new System.Drawing.Size(5 * 75, 75),
-                BackColor = Color.LightGray
-            };
-            startingForm.Controls.Add(player1Jail);
-
-            Panel player2Jail = new Panel {
-                Location = new System.Drawing.Point(10 * 75, 7 * 75),
-                Size = new System.Drawing.Size(3 * 75, 75),
-                BackColor = Color.LightGray
-            };
-            startingForm.Controls.Add(player2Jail);
-        }
-
-        public void SwithBoxes(Box clickedBox) {
+        public void SwitchBoxes(Box clickedBox) {
             panel.BackgroundImage = clickedBox.panel.BackgroundImage;
             clickedBox.panel.BackgroundImage = null;
 
@@ -104,6 +85,16 @@ namespace Proiect_IA {
 
             piece = clickedBox.piece;
             clickedBox.piece = null;
+        }
+
+        public void addToJail(Player player) {
+            foreach(var item in player.jails) {
+                if(item.piece == null) {
+                    item.panel.BackgroundImage = this.panel.BackgroundImage;
+                    item.piece = this.piece;
+                    break;
+                }
+            }
         }
     }    
 }

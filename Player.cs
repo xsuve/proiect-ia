@@ -10,6 +10,8 @@ namespace Proiect_IA {
         public string name;
         public Color color;
         List<Piece> pieces = new List<Piece>();
+        public List<Box> airport = new List<Box>();
+        public List<Box> jails = new List<Box>();
 
         public Player(string name, Color color) {
             this.name = name;

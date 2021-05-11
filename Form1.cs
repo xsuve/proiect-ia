@@ -18,7 +18,11 @@ namespace Proiect_IA {
         }
 
         public void Panel_Click(object sender, EventArgs e, int i, int j) {           
-            startGame.pieceClick(i,j);
+            startGame.pieceClick(i, j);
+        }
+
+        public void Jail_Click(object sender, EventArgs e, int i, Player player) {
+            startGame.jailClick(i, player);
         }
     }
 }
