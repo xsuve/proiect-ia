@@ -32,6 +32,20 @@ namespace Proiect_IA {
             nextLegalMove = false;
         }
 
+        //Box for jail and airport
+        public Box(int i, int j, int k) {
+            panel = new Panel {
+                Location = new System.Drawing.Point((j + 1) * boxSize, (8 - i) * boxSize),
+                Size = new System.Drawing.Size(boxSize, boxSize),
+                BackColor = (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1) ? Color.BurlyWood : Color.Moccasin
+            };
+            x = i + 1;
+            y = Convert.ToChar('A' + j).ToString();
+            isOccupied = false;
+            nextLegalMove = false;
+            piece = new Piece(Color.Red, k);
+        }
+
         public void AddPiece(Piece piece) {
             this.piece = piece;
             panel.BackgroundImage = piece.image;
@@ -84,12 +98,22 @@ namespace Proiect_IA {
             clickedBox.isOccupied = false;
 
             piece = clickedBox.piece;
-            clickedBox.piece = null;
+            clickedBox.piece = new Piece(-1);
         }
 
         public void addToJail(Player player) {
             foreach(var item in player.jails) {
-                if(item.piece == null) {
+                if(item.piece.priority == -1) {
+                    item.panel.BackgroundImage = this.panel.BackgroundImage;
+                    item.piece = this.piece;
+                    break;
+                }
+            }
+        }
+
+        public void addToAirport(Player player) {
+            foreach (var item in player.airport) {
+                if (item.piece.priority == -1) {
                     item.panel.BackgroundImage = this.panel.BackgroundImage;
                     item.piece = this.piece;
                     break;
