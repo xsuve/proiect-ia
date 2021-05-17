@@ -13,7 +13,8 @@ namespace Proiect_IA {
         static int index = 0;
         static Box clickedBox = null;
         static Boolean clicked = false;
-        static Boolean jailClicked = false;
+        public static Boolean jailClicked = false;
+        static Boolean airportClicked = false;
         private Player currentPlayer;
 
         private Form1 startingForm;
@@ -39,14 +40,22 @@ namespace Proiect_IA {
         public void createJails() {
             // Airports
             for (int i = 1; i <= 5; i++) {
+                int k = i - 1;
                 Box box = new Box(7, 7 + i, -1);
+
                 box.panel.BackColor = Color.Silver;
+                box.panel.Click += (sender, EventArgs) => { startingForm.Airport_Click(sender, EventArgs, k, players[1]); };
+
                 startingForm.Controls.Add(box.panel);
                 players[1].airport.Add(box);
             }
             for (int i = 1; i <= 5; i++) {
+                int k = i - 1;
                 Box box = new Box(2, 7 + i, -1);
+
                 box.panel.BackColor = Color.Silver;
+                box.panel.Click += (sender, EventArgs) => { startingForm.Airport_Click(sender, EventArgs, k, players[0]); };
+
                 startingForm.Controls.Add(box.panel);
                 players[0].airport.Add(box);
             }
@@ -115,9 +124,10 @@ namespace Proiect_IA {
                         player.jails[i].panel.BackColor = Color.Khaki;
                         clickedBox = player.jails[i];
                         jailClicked = true;
+                    } else {
+                        player.jails[i].panel.BackColor = Color.Tomato;
+                        jailClicked = true;
                     }
-                    else
-                        MessageBox.Show("Prioritatea piesei este prea mare");
                 }              
             } else {
                 player.jails[i].panel.BackColor = Color.DarkGray;
@@ -125,9 +135,22 @@ namespace Proiect_IA {
             }
         }
 
+        public void airportClick(int i, Player player) {
+            if (!airportClicked) {
+                if (player.airport[i].piece != null && currentPlayer.color == player.color) {
+                    player.airport[i].panel.BackColor = Color.Khaki;
+                    clickedBox = player.airport[i];
+                    airportClicked = true;
+                }
+            } else {
+                player.airport[i].panel.BackColor = Color.Silver;
+                airportClicked = false;
+            }
+        }
+
         public void firstClick(int xCoord, int yCoord) {
-            if (jailClicked) {
-                AddFromJailToTable(xCoord, yCoord);
+            if (jailClicked || airportClicked) {
+                AddToTable(xCoord, yCoord);
             } else {
                 if (board[xCoord, yCoord].isOccupied && currentPlayer.color == board[xCoord, yCoord].piece.color) {
                     clickedBox = board[xCoord, yCoord];
@@ -160,20 +183,30 @@ namespace Proiect_IA {
             } 
         }
 
-        private void AddFromJailToTable(int xCoord, int yCoord) {
-            if (!board[xCoord, yCoord].isOccupied) {
-                //Adaugare piesa pe tabla
-                board[xCoord, yCoord].SwitchBoxes(clickedBox);
-                clickedBox.panel.BackColor = Color.DarkGray;
+        private void AddToTable(int xCoord, int yCoord) {
+            if (jailClicked) {
+                if (!board[xCoord, yCoord].isOccupied) {
+                    //Adaugare piesa pe tabla
+                    board[xCoord, yCoord].SwitchBoxes(clickedBox);
+                    clickedBox.panel.BackColor = Color.DarkGray;
 
-                //Adaugare piesa adversar pe airport
-                var airportPiece = players[index % 2].jails.OrderByDescending(i => i.piece.priority).First();
-                airportPiece.addToAirport(players[index % 2]);
-                airportPiece.panel.BackgroundImage = null;
-                airportPiece.piece = new Piece(-1);
+                    //Adaugare piesa adversar pe airport
+                    var airportPiece = players[index % 2].jails.OrderByDescending(i => i.piece.priority).First();
+                    airportPiece.addToAirport(players[index % 2]);
+                    airportPiece.panel.BackgroundImage = null;
+                    airportPiece.piece = new Piece(-1);
 
-                jailClicked = false;
-                currentPlayer = players[index++ % 2];
+                    jailClicked = false;
+                    currentPlayer = players[index++ % 2];
+                }
+            } else {
+                if (!board[xCoord, yCoord].isOccupied) {
+                    board[xCoord, yCoord].SwitchBoxes(clickedBox);
+                    clickedBox.panel.BackColor = Color.Silver;
+
+                    airportClicked = false;
+                    currentPlayer = players[index++ % 2];
+                }
             }
         }
         private void ResetBoard() {

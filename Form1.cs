@@ -14,7 +14,6 @@ namespace Proiect_IA {
 
         public Form1() {
             InitializeComponent();
-             startGame = new Game(this);
         }
 
         public void Panel_Click(object sender, EventArgs e, int i, int j) {           
@@ -23,6 +22,40 @@ namespace Proiect_IA {
 
         public void Jail_Click(object sender, EventArgs e, int i, Player player) {
             startGame.jailClick(i, player);
+        }
+
+        public void Airport_Click(object sender, EventArgs e, int i, Player player) {
+            startGame.airportClick(i, player);
+        }
+
+        private void btnSinglePlayer_Click(object sender, EventArgs e) {
+            this.Size = new Size(1050, 714);
+
+            this.btnSinglePlayer.Hide();
+            this.btnMultiPlayer.Hide();
+            this.btnArtificialIntelligence.Hide();
+
+            startGame = new Game(this);
+        }
+
+        private void btnMultiPlayer_Click(object sender, EventArgs e) {
+            this.Size = new Size(1050, 714);
+
+            this.btnSinglePlayer.Hide();
+            this.btnMultiPlayer.Hide();
+            this.btnArtificialIntelligence.Hide();
+
+            startGame = new Game(this);
+        }
+
+        private void btnArtificialIntelligence_Click(object sender, EventArgs e) {
+            this.Size = new Size(1050, 714);
+
+            this.btnSinglePlayer.Hide();
+            this.btnMultiPlayer.Hide();
+            this.btnArtificialIntelligence.Hide();
+
+            startGame = new Game(this);
         }
     }
 }
