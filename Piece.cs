@@ -7,13 +7,12 @@ namespace Proiect_IA {
         public Image image;
         public int priority;
         protected int boardSize = 8;
-        private int v;
 
         public Piece(int priority) {
             this.priority = priority;
         }
 
-        public Piece(Color color, int priority ) {
+        public Piece(Color color, int priority) {
             this.color = color;
             this.priority = priority;
         }
@@ -22,7 +21,13 @@ namespace Proiect_IA {
 
         }
         
+        public virtual void enable() {
 
+        }
+
+        public virtual void disable() {
+
+        }
 
     }
 }

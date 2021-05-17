@@ -8,8 +8,15 @@ using System.Threading.Tasks;
 namespace Proiect_IA {
     internal class Bishop : Piece {
         public Bishop(Color color, int priority) : base(color, priority) {
-            image = color == Color.White ? Proiect_IA.Properties.Resources.bishop_w : Proiect_IA.Properties.Resources.bishop_b;
+            image = color == Color.White ? (Proiect_IA.Properties.Resources.bishop_w) : (Proiect_IA.Properties.Resources.bishop_b_d);
             priority = 2;
+        }
+
+        public override void enable() {
+            image = color == Color.White ? (Proiect_IA.Properties.Resources.bishop_w) : (Proiect_IA.Properties.Resources.bishop_b);
+        }
+        public override void disable() {
+            image = color == Color.White ? (Proiect_IA.Properties.Resources.bishop_w_d) : (Proiect_IA.Properties.Resources.bishop_b_d);
         }
 
         public override void Move(int Xcoord, int Ycoord, Box[,] board) {

@@ -8,8 +8,15 @@ using System.Threading.Tasks;
 namespace Proiect_IA {
     class Rook : Piece {
         public Rook(Color color, int priority) : base(color, priority) {
-            image = color == Color.White ? Proiect_IA.Properties.Resources.rook_w : Proiect_IA.Properties.Resources.rook_b;
+            image = color == Color.White ? (Proiect_IA.Properties.Resources.rook_w) : (Proiect_IA.Properties.Resources.rook_b_d);
             priority = 3;
+        }
+
+        public override void enable() {
+            image = color == Color.White ? (Proiect_IA.Properties.Resources.rook_w) : (Proiect_IA.Properties.Resources.rook_b);
+        }
+        public override void disable() {
+            image = color == Color.White ? (Proiect_IA.Properties.Resources.rook_w_d) : (Proiect_IA.Properties.Resources.rook_b_d);
         }
 
         public override void Move(int Xcoord, int Ycoord, Box[,] board) {

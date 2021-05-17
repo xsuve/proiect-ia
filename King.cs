@@ -10,8 +10,15 @@ namespace Proiect_IA {
     internal class King : Piece {
 
         public King(Color color, int priority) : base(color, priority) {
-            image = color == Color.White ? Proiect_IA.Properties.Resources.king_w : Proiect_IA.Properties.Resources.king_b;
+            image = color == Color.White ? (Proiect_IA.Properties.Resources.king_w) : (Proiect_IA.Properties.Resources.king_b_d);
             priority = 5;
+        }
+
+        public override void enable() {
+            image = color == Color.White ? (Proiect_IA.Properties.Resources.king_w) : (Proiect_IA.Properties.Resources.king_b);
+        }
+        public override void disable() {
+            image = color == Color.White ? (Proiect_IA.Properties.Resources.king_w_d) : (Proiect_IA.Properties.Resources.king_b_d);
         }
 
         public override void Move(int Xcoord, int Ycoord, Box[,] board) {

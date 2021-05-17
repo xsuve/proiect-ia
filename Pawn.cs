@@ -8,8 +8,15 @@ using System.Threading.Tasks;
 namespace Proiect_IA {
     internal class Pawn : Piece {
         public Pawn(Color color, int priority) : base(color, priority) {
-            image = color == Color.White ? Proiect_IA.Properties.Resources.pawn_w : Proiect_IA.Properties.Resources.pawn_b;
+            image = color == Color.White ? (Proiect_IA.Properties.Resources.pawn_w) : (Proiect_IA.Properties.Resources.pawn_b_d);
             priority = 1;
+        }
+
+        public override void enable() {
+            image = color == Color.White ? (Proiect_IA.Properties.Resources.pawn_w) : (Proiect_IA.Properties.Resources.pawn_b);
+        }
+        public override void disable() {
+            image = color == Color.White ? (Proiect_IA.Properties.Resources.pawn_w_d) : (Proiect_IA.Properties.Resources.pawn_b_d);
         }
 
         public override void Move(int Xcoord, int Ycoord, Box[,] board) {

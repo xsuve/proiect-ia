@@ -119,7 +119,7 @@ namespace Proiect_IA {
 
         public void jailClick(int i, Player player) {
             if (!jailClicked) {
-                if (player.jails[i].piece != null && currentPlayer.color == player.color) {
+                if (player.jails[i].piece.priority != -1 && currentPlayer.color == player.color) {
                     if (player.jails[i].piece.priority <= players[index % 2].jails.Max(pi => pi.piece.priority)) {
                         player.jails[i].panel.BackColor = Color.Khaki;
                         clickedBox = player.jails[i];
@@ -128,7 +128,7 @@ namespace Proiect_IA {
                         player.jails[i].panel.BackColor = Color.Tomato;
                         jailClicked = true;
                     }
-                }              
+                }
             } else {
                 player.jails[i].panel.BackColor = Color.DarkGray;
                 jailClicked = false;
@@ -137,7 +137,7 @@ namespace Proiect_IA {
 
         public void airportClick(int i, Player player) {
             if (!airportClicked) {
-                if (player.airport[i].piece != null && currentPlayer.color == player.color) {
+                if (player.airport[i].piece.priority != -1 && currentPlayer.color == player.color) {
                     player.airport[i].panel.BackColor = Color.Khaki;
                     clickedBox = player.airport[i];
                     airportClicked = true;
@@ -165,8 +165,7 @@ namespace Proiect_IA {
                 ResetBoard();
                 clicked = false;
                 clickedBox = null;
-
-            } else if(board[xCoord, yCoord].nextLegalMove){
+            } else if(board[xCoord, yCoord].nextLegalMove) {
                 if (board[xCoord, yCoord].piece != null) {
                     board[xCoord, yCoord].addToJail(players[index % 2]);
                 }
@@ -174,7 +173,7 @@ namespace Proiect_IA {
                 board[xCoord, yCoord].SwitchBoxes(clickedBox);  
                 ResetBoard();
                 //schimbare rand la jucatori
-                currentPlayer = players[index++ % 2];
+                switchPlayer();
 
                 clicked = false;
                 clickedBox = null;
@@ -186,18 +185,20 @@ namespace Proiect_IA {
         private void AddToTable(int xCoord, int yCoord) {
             if (jailClicked) {
                 if (!board[xCoord, yCoord].isOccupied) {
-                    //Adaugare piesa pe tabla
-                    board[xCoord, yCoord].SwitchBoxes(clickedBox);
-                    clickedBox.panel.BackColor = Color.DarkGray;
+                    if (clickedBox != null) {
+                        //Adaugare piesa pe tabla
+                        board[xCoord, yCoord].SwitchBoxes(clickedBox);
+                        clickedBox.panel.BackColor = Color.DarkGray;
 
-                    //Adaugare piesa adversar pe airport
-                    var airportPiece = players[index % 2].jails.OrderByDescending(i => i.piece.priority).First();
-                    airportPiece.addToAirport(players[index % 2]);
-                    airportPiece.panel.BackgroundImage = null;
-                    airportPiece.piece = new Piece(-1);
+                        //Adaugare piesa adversar pe airport
+                        var airportPiece = players[index % 2].jails.OrderByDescending(i => i.piece.priority).First();
+                        airportPiece.addToAirport(players[index % 2]);
+                        airportPiece.panel.BackgroundImage = null;
+                        airportPiece.piece = new Piece(-1);
 
-                    jailClicked = false;
-                    currentPlayer = players[index++ % 2];
+                        jailClicked = false;
+                        switchPlayer();
+                    }
                 }
             } else {
                 if (!board[xCoord, yCoord].isOccupied) {
@@ -205,7 +206,7 @@ namespace Proiect_IA {
                     clickedBox.panel.BackColor = Color.Silver;
 
                     airportClicked = false;
-                    currentPlayer = players[index++ % 2];
+                    switchPlayer();
                 }
             }
         }
@@ -214,6 +215,34 @@ namespace Proiect_IA {
                 for (int j = 0; j < 8; j++) {
                     board[i, j].nextLegalMove = false;
                     board[i, j].panel.BackColor = (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1) ? Color.BurlyWood : Color.Moccasin;
+                }
+            }
+
+            // Airport
+            foreach(Player player in players) {
+                foreach (var airportBox in player.airport) {
+                    airportBox.panel.BackColor = Color.Silver;
+                }
+            }
+
+            // Jails
+            foreach (Player player in players) {
+                foreach (var jailsBox in player.jails) {
+                    jailsBox.panel.BackColor = Color.DarkGray;
+                }
+            }
+        }
+        public void switchPlayer() {
+            currentPlayer = players[index++ % 2];
+
+            players[index % 2].disablePieces();
+            currentPlayer.enablePieces();
+
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if (board[i, j].piece != null) {
+                        board[i, j].panel.BackgroundImage = board[i, j].piece.image;
+                    }
                 }
             }
         }

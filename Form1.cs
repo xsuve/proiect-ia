@@ -31,6 +31,8 @@ namespace Proiect_IA {
         private void btnSinglePlayer_Click(object sender, EventArgs e) {
             this.Size = new Size(1050, 714);
 
+            this.label1.Hide();
+            this.label2.Hide();
             this.btnSinglePlayer.Hide();
             this.btnMultiPlayer.Hide();
             this.btnArtificialIntelligence.Hide();
@@ -41,6 +43,8 @@ namespace Proiect_IA {
         private void btnMultiPlayer_Click(object sender, EventArgs e) {
             this.Size = new Size(1050, 714);
 
+            this.label1.Hide();
+            this.label2.Hide();
             this.btnSinglePlayer.Hide();
             this.btnMultiPlayer.Hide();
             this.btnArtificialIntelligence.Hide();
@@ -51,6 +55,8 @@ namespace Proiect_IA {
         private void btnArtificialIntelligence_Click(object sender, EventArgs e) {
             this.Size = new Size(1050, 714);
 
+            this.label1.Hide();
+            this.label2.Hide();
             this.btnSinglePlayer.Hide();
             this.btnMultiPlayer.Hide();
             this.btnArtificialIntelligence.Hide();

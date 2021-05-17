@@ -126,5 +126,41 @@
   <ItemGroup>
     <None Include="Resources\rook-w.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bishop-b-d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bishop-w-d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\king-b-d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\king-w-d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knight-b-d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knight-w-d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pawn-b-d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pawn-w-d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\queen-b-d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\queen-w-d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rook-b-d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rook-w-d.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

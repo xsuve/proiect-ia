@@ -19,6 +19,17 @@ namespace Proiect_IA {
             setPieces();
         }
 
+        public void enablePieces() {
+            for (int i = 0; i < pieces.Count; i++) {
+                pieces[i].enable();
+            }
+        }
+        public void disablePieces() {
+            for (int i = 0; i < pieces.Count; i++) {
+                pieces[i].disable();
+            }
+        }
+
         private void setPieces() {
             if (color == Color.Black)
                 blackPieces();
