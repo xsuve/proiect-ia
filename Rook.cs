@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Proiect_IA {
     class Rook : Piece {
-        public Rook(Color color, int priority) : base(color, priority) {
+        public Rook(Color color, int priority, int x, int y) : base(color, priority, x, y ) {
             moved = false;
             image = color == Color.White ? (Proiect_IA.Properties.Resources.rook_w) : (Proiect_IA.Properties.Resources.rook_b_d);
             priority = 3;
@@ -92,6 +92,73 @@ namespace Proiect_IA {
 
 
         }
+
+        public override void canMove( Box[,] board) {
+            int Xcoord = this.x, Ycoord = this.y;
+            //collum possible move under the rook
+            for (int i = 1; i < boardSize; i++)
+                if (Xcoord + i < boardSize)
+                    if (board[Xcoord + i, Ycoord].isOccupied == false) {
+                        board[Xcoord + i, Ycoord].nextLegalMove = true;
+                    }
+                    else if (board[Xcoord + i, Ycoord].piece.color != color) {
+                        board[Xcoord + i, Ycoord].nextLegalMove = true;
+                        break;
+                    }
+                    else
+                        break;
+                else
+                    break;
+
+
+            //raw possible move to the right of the rook
+            for (int i = 1; i < boardSize; i++)
+                if (Ycoord + i < boardSize)
+                    if (board[Xcoord, Ycoord + i].isOccupied == false) {
+                        board[Xcoord, Ycoord + i].nextLegalMove = true;
+                    }
+                    else if (board[Xcoord, Ycoord + i].piece.color != color) {
+                        board[Xcoord, Ycoord + i].nextLegalMove = true;
+                        break;
+                    }
+                    else
+                        break;
+                else
+                    break;
+
+            //collum possible move above the rook
+            for (int i = 1; i < boardSize; i++)
+                if (Xcoord - i >= 0)
+                    if (board[Xcoord - i, Ycoord].isOccupied == false) {
+                        board[Xcoord - i, Ycoord].nextLegalMove = true;
+                    }
+                    else if (board[Xcoord - i, Ycoord].piece.color != color) {
+                        board[Xcoord - i, Ycoord].nextLegalMove = true;
+                        break;
+                    }
+                    else
+                        break;
+                else
+                    break;
+
+            //possible move to the left of the rook
+            for (int i = 1; i < boardSize; i++)
+                if (Ycoord - i >= 0)
+                    if (board[Xcoord, Ycoord - i].isOccupied == false) {
+                        board[Xcoord, Ycoord - i].nextLegalMove = true;
+                    }
+                    else if (board[Xcoord, Ycoord - i].piece.color != color) {
+                        board[Xcoord, Ycoord - i].nextLegalMove = true;
+                        break;
+                    }
+                    else
+                        break;
+                else
+                    break;
+
+
+        }
+
 
     }
 }

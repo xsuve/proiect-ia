@@ -28,6 +28,12 @@
             this.btnArtificialIntelligence = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.serverBtn = new System.Windows.Forms.Button();
+            this.connectBtn = new System.Windows.Forms.Button();
+            this.serverTextBox = new System.Windows.Forms.TextBox();
+            this.connectTextBox = new System.Windows.Forms.TextBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // btnSinglePlayer
@@ -63,10 +69,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Copperplate Gothic Bold", 34F);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 34F);
             this.label1.Location = new System.Drawing.Point(12, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(302, 63);
+            this.label1.Size = new System.Drawing.Size(242, 65);
             this.label1.TabIndex = 3;
             this.label1.Text = "Hostage";
             // 
@@ -80,12 +86,58 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Chess";
             // 
+            // serverBtn
+            // 
+            this.serverBtn.Location = new System.Drawing.Point(23, 307);
+            this.serverBtn.Name = "serverBtn";
+            this.serverBtn.Size = new System.Drawing.Size(102, 22);
+            this.serverBtn.TabIndex = 5;
+            this.serverBtn.Text = "Start Server";
+            this.serverBtn.UseVisualStyleBackColor = true;
+            this.serverBtn.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // connectBtn
+            // 
+            this.connectBtn.Location = new System.Drawing.Point(229, 307);
+            this.connectBtn.Name = "connectBtn";
+            this.connectBtn.Size = new System.Drawing.Size(83, 22);
+            this.connectBtn.TabIndex = 6;
+            this.connectBtn.Text = "Connect";
+            this.connectBtn.UseVisualStyleBackColor = true;
+            this.connectBtn.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // serverTextBox
+            // 
+            this.serverTextBox.Location = new System.Drawing.Point(23, 340);
+            this.serverTextBox.Name = "serverTextBox";
+            this.serverTextBox.Size = new System.Drawing.Size(102, 22);
+            this.serverTextBox.TabIndex = 7;
+            // 
+            // connectTextBox
+            // 
+            this.connectTextBox.Location = new System.Drawing.Point(229, 340);
+            this.connectTextBox.Name = "connectTextBox";
+            this.connectTextBox.Size = new System.Drawing.Size(102, 22);
+            this.connectTextBox.TabIndex = 8;
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            // 
+            // backgroundWorker2
+            // 
+            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(449, 318);
+            this.ClientSize = new System.Drawing.Size(446, 374);
+            this.Controls.Add(this.connectTextBox);
+            this.Controls.Add(this.serverTextBox);
+            this.Controls.Add(this.connectBtn);
+            this.Controls.Add(this.serverBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnArtificialIntelligence);
@@ -105,6 +157,12 @@
         private System.Windows.Forms.Button btnArtificialIntelligence;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button serverBtn;
+        private System.Windows.Forms.Button connectBtn;
+        private System.Windows.Forms.TextBox serverTextBox;
+        private System.Windows.Forms.TextBox connectTextBox;
+        public System.ComponentModel.BackgroundWorker backgroundWorker1;
+        public System.ComponentModel.BackgroundWorker backgroundWorker2;
     }
 }
 
