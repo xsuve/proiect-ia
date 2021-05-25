@@ -10,7 +10,7 @@ namespace Proiect_IA {
     public class Box {
         private const int boxSize = 75;
         public int x { get; set; }
-        public string y { get; set; }
+        public int y { get; set; }
 
         public Panel panel;
 
@@ -24,10 +24,10 @@ namespace Proiect_IA {
             panel = new Panel {
                 Location = new System.Drawing.Point(( j+1 ) * boxSize, (8-i) * boxSize),
                 Size = new System.Drawing.Size(boxSize, boxSize),
-                BackColor = (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1) ? Color.BurlyWood : Color.Moccasin
+                BackColor = (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1) ? Color.Moccasin : Color.BurlyWood
             };          
-            x = i + 1;
-            y = Convert.ToChar('A' + j).ToString();
+            x = i;
+            y = j;
             isOccupied = false;
             nextLegalMove = false;
         }
@@ -37,13 +37,13 @@ namespace Proiect_IA {
             panel = new Panel {
                 Location = new System.Drawing.Point((j + 1) * boxSize, (8 - i) * boxSize),
                 Size = new System.Drawing.Size(boxSize, boxSize),
-                BackColor = (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1) ? Color.BurlyWood : Color.Moccasin
+                BackColor = (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1) ? Color.Moccasin : Color.BurlyWood
             };
-            x = i + 1;
-            y = Convert.ToChar('A' + j).ToString();
+            x = i;
+            y = j;
             isOccupied = false;
             nextLegalMove = false;
-            piece = new Piece(Color.Red, k);
+            piece = new Piece(Color.Red, k, 0, 0);
         }
 
         public void AddPiece(Piece piece) {
@@ -99,6 +99,7 @@ namespace Proiect_IA {
 
             piece = clickedBox.piece;
             clickedBox.piece = new Piece(-1);
+
         }
 
         public void addToJail(Player player) {

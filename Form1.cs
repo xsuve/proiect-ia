@@ -11,6 +11,7 @@ using System.Windows.Forms;
 namespace Proiect_IA {
     public partial class Form1 : Form {
         Game startGame;
+        OnlineGame onlineGame;
 
         public Form1() {
             InitializeComponent();
@@ -49,7 +50,7 @@ namespace Proiect_IA {
             this.btnMultiPlayer.Hide();
             this.btnArtificialIntelligence.Hide();
 
-            startGame = new Game(this);
+            onlineGame = new OnlineGame(this);
         }
 
         private void btnArtificialIntelligence_Click(object sender, EventArgs e) {
@@ -62,6 +63,22 @@ namespace Proiect_IA {
             this.btnArtificialIntelligence.Hide();
 
             startGame = new Game(this);
+        }
+
+        private void button1_Click(object sender, EventArgs e) {
+            onlineGame.StartServer(serverTextBox.Text);
+        }
+
+        private void button2_Click(object sender, EventArgs e) {
+            onlineGame.Connect(connectTextBox.Text);
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e) {
+            onlineGame.ReceiveData();
+        }
+
+        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e) {
+            onlineGame.SendData();
         }
     }
 }
