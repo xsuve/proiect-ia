@@ -37,18 +37,21 @@ namespace Proiect_IA {
             this.btnSinglePlayer.Hide();
             this.btnMultiPlayer.Hide();
             this.btnArtificialIntelligence.Hide();
+            this.btnBackToMenu.Hide();
 
             startGame = new Game(this);
         }
 
         private void btnMultiPlayer_Click(object sender, EventArgs e) {
-            this.Size = new Size(1050, 714);
-
-            this.label1.Hide();
-            this.label2.Hide();
             this.btnSinglePlayer.Hide();
             this.btnMultiPlayer.Hide();
             this.btnArtificialIntelligence.Hide();
+
+            this.serverBtn.Show();
+            this.connectBtn.Show();
+            this.serverTextBox.Show();
+            this.connectTextBox.Show();
+            this.btnBackToMenu.Show();
 
             onlineGame = new OnlineGame(this);
         }
@@ -61,8 +64,21 @@ namespace Proiect_IA {
             this.btnSinglePlayer.Hide();
             this.btnMultiPlayer.Hide();
             this.btnArtificialIntelligence.Hide();
+            this.btnBackToMenu.Hide();
 
             startGame = new Game(this);
+        }
+
+        private void btnBackToMenu_Click(object sender, EventArgs e) {
+            this.btnSinglePlayer.Show();
+            this.btnMultiPlayer.Show();
+            this.btnArtificialIntelligence.Show();
+
+            this.serverBtn.Hide();
+            this.connectBtn.Hide();
+            this.serverTextBox.Hide();
+            this.connectTextBox.Hide();
+            this.btnBackToMenu.Hide();
         }
 
         private void button1_Click(object sender, EventArgs e) {
