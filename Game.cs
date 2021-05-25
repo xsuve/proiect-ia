@@ -32,7 +32,7 @@ namespace Proiect_IA {
             createJails();
         }
 
-        private void winner() {
+        private bool winner() { 
 
             var piece = currentPlayer.pieces.Find(pi => pi is King);
 
@@ -41,6 +41,7 @@ namespace Proiect_IA {
             if (board[piece.x, piece.y].nextLegalMove == true) {
                 board[piece.x, piece.y].panel.BackColor = Color.Red;      
             }
+            return false;
         }
 
         public void pieceClick(int xCoord, int yCoord) {
