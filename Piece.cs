@@ -5,6 +5,7 @@ namespace Proiect_IA {
 
         public Color color;
         public Image image;
+        public bool moved;
         public int priority;
         protected int boardSize = 8;
 

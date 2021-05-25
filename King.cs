@@ -8,8 +8,8 @@ using System.Windows.Forms;
 
 namespace Proiect_IA {
     internal class King : Piece {
-
         public King(Color color, int priority) : base(color, priority) {
+            moved = false;
             image = color == Color.White ? (Proiect_IA.Properties.Resources.king_w) : (Proiect_IA.Properties.Resources.king_b_d);
             priority = 5;
         }
@@ -22,6 +22,22 @@ namespace Proiect_IA {
         }
 
         public override void Move(int Xcoord, int Ycoord, Box[,] board) {
+            // Rocada mica
+            if (moved == false) {
+                if (board[Xcoord, Ycoord - 1].isOccupied == false && board[Xcoord, Ycoord - 2].isOccupied == false) {
+                    board[Xcoord, Ycoord - 3].nextLegalMove = true;
+                    board[Xcoord, Ycoord - 3].panel.BackColor = Color.DarkSeaGreen;
+                }
+            }
+
+            // Rocada mare
+            if (moved == false) {
+                if (board[Xcoord, Ycoord + 1].isOccupied == false && board[Xcoord, Ycoord + 2].isOccupied == false && board[Xcoord, Ycoord + 3].isOccupied == false) {
+                    board[Xcoord, Ycoord + 4].nextLegalMove = true;
+                    board[Xcoord, Ycoord + 4].panel.BackColor = Color.DarkSeaGreen;
+                }
+            }
+
             //down move
             if (Xcoord + 1 < boardSize)
                 if (board[Xcoord + 1, Ycoord].isOccupied == false) {

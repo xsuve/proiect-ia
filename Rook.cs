@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Proiect_IA {
     class Rook : Piece {
         public Rook(Color color, int priority) : base(color, priority) {
+            moved = false;
             image = color == Color.White ? (Proiect_IA.Properties.Resources.rook_w) : (Proiect_IA.Properties.Resources.rook_b_d);
             priority = 3;
         }

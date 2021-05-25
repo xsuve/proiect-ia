@@ -162,12 +162,30 @@ namespace Proiect_IA {
                 ResetBoard();
                 clicked = false;
                 clickedBox = null;
+
+
             } else if(board[xCoord, yCoord].nextLegalMove) {
-                if (board[xCoord, yCoord].piece != null) {
+                if (board[xCoord, yCoord].piece != null && board[xCoord, yCoord].piece.color != currentPlayer.color) {
                     board[xCoord, yCoord].addToJail(players[index % 2]);
                 }
 
-                board[xCoord, yCoord].SwitchBoxes(clickedBox);  
+                // Rocada
+                if (clickedBox.piece is King && board[xCoord, yCoord].piece is Rook && !board[xCoord, yCoord].piece.moved) {
+                    if (clickedBox.x - xCoord < 0) {
+                        board[xCoord, 1].SwitchBoxes(board[xCoord, 3]);
+                        board[xCoord, 2].SwitchBoxes(board[xCoord, 0]);
+                    } else {
+                        board[xCoord, 5].SwitchBoxes(board[xCoord, 3]);
+                        board[xCoord, 4].SwitchBoxes(board[xCoord, 7]);
+                    }
+                } else {
+                    if (clickedBox.piece is King && clickedBox.piece is Rook) {
+                        clickedBox.piece.moved = true;
+                    }
+
+                    board[xCoord, yCoord].SwitchBoxes(clickedBox);
+                }
+                
                 ResetBoard();
                 //schimbare rand la jucatori
                 switchPlayer();
@@ -176,7 +194,7 @@ namespace Proiect_IA {
                 clickedBox = null;
                 //removeClickEvents();
                 //verificarePiesaAdversarPeBox();  TO DO
-            } 
+            }
         }
 
         private void AddToTable(int xCoord, int yCoord) {
