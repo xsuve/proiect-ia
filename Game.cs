@@ -39,9 +39,10 @@ namespace Proiect_IA {
 
         public void createJails() {
             // Airports
+            Box box;
             for (int i = 1; i <= 5; i++) {
                 int k = i - 1;
-                Box box = new Box(7, 7 + i, -1);
+                box = new Box(7, 7 + i, -1);
 
                 box.panel.BackColor = Color.Silver;
                 box.panel.Click += (sender, EventArgs) => { startingForm.Airport_Click(sender, EventArgs, k, players[1]); };
@@ -51,7 +52,7 @@ namespace Proiect_IA {
             }
             for (int i = 1; i <= 5; i++) {
                 int k = i - 1;
-                Box box = new Box(2, 7 + i, -1);
+                box = new Box(2, 7 + i, -1);
 
                 box.panel.BackColor = Color.Silver;
                 box.panel.Click += (sender, EventArgs) => { startingForm.Airport_Click(sender, EventArgs, k, players[0]); };
@@ -63,8 +64,6 @@ namespace Proiect_IA {
             // Jails
             for (int i = 1; i <= 10; i++) {
                 int k = i - 1;
-                //Box box = new Box(6, 7 + i);
-                Box box;
                 if (i > 5) {
                     box = new Box(5, 7 + (i - 5), -1);
                 } else {
@@ -79,8 +78,6 @@ namespace Proiect_IA {
             }
             for (int i = 1; i <= 10; i++) {
                 int k = i - 1;
-                //Box box = new Box(0, 7 + i);
-                Box box;
                 if (i > 5) {
                     box = new Box(0, 7 + (i - 5), -1);
                 } else {
