@@ -9,6 +9,7 @@ namespace Proiect_IA {
     class Rook : Piece {
         public Rook(Color color) : base(color) {
             image = Proiect_IA.Properties.Resources.Image1;
+            //DFG
         }
 
         public override void Move(int Xcoord, int Ycoord, Box[,] board) {
