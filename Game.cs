@@ -25,8 +25,8 @@ namespace Proiect_IA {
             startingForm = form;
             createTable();
 
-            players.Add(new Player("alb", Color.White));
-            players.Add(new Player("negru", Color.Black));
+            players.Add(new Player("alb", Color.White, board));
+            players.Add(new Player("negru", Color.Black, board));
             currentPlayer = players[index++ % 2];
 
             createJails();
@@ -112,22 +112,25 @@ namespace Proiect_IA {
 
                 // Rocada
                 if (clickedBox.piece is King && board[xCoord, yCoord].piece is Rook && !board[xCoord, yCoord].piece.moved) {
-                    if (clickedBox.x - xCoord < 0) {
+                    if (clickedBox.y - yCoord > 0) {
                         board[xCoord, 1].SwitchBoxes(board[xCoord, 3]);
                         board[xCoord, 2].SwitchBoxes(board[xCoord, 0]);
+                        goto JumpSwitch;
                     } else {
                         board[xCoord, 5].SwitchBoxes(board[xCoord, 3]);
                         board[xCoord, 4].SwitchBoxes(board[xCoord, 7]);
+                        goto JumpSwitch;
                     }
                 } else {
+
                     if (clickedBox.piece is King && clickedBox.piece is Rook) {
                         clickedBox.piece.moved = true;
-                    }
-
-                    board[xCoord, yCoord].SwitchBoxes(clickedBox);
+                    } 
                 }
-                
+
                 changePieces(board[xCoord, yCoord], clickedBox);
+
+            JumpSwitch:               
 
                 ResetBoard();
                 //schimbare rand la jucatori

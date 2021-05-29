@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,18 +16,29 @@ namespace Proiect_IA {
 
         public Form1() {
             InitializeComponent();
+            connectTextBox.Text =  Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();
+            serverTextBox.Text = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString(); 
         }
 
-        public void Panel_Click(object sender, EventArgs e, int i, int j) {           
-            startGame.pieceClick(i, j);
+        public void Panel_Click(object sender, EventArgs e, int i, int j) {    
+            if(startGame !=null )
+                startGame.pieceClick(i, j);
+            if (onlineGame != null)
+                onlineGame.pieceClick(i, j);
         }
 
         public void Jail_Click(object sender, EventArgs e, int i, Player player) {
-            startGame.jailClick(i, player);
+            if(startGame !=null )
+                startGame.jailClick(i,player);
+            if (onlineGame != null)
+                onlineGame.jailClick(i,player);
         }
 
         public void Airport_Click(object sender, EventArgs e, int i, Player player) {
-            startGame.airportClick(i, player);
+            if (startGame != null)
+                startGame.airportClick(i, player);
+            if (onlineGame != null)
+                onlineGame.airportClick(i, player);
         }
 
         private void btnSinglePlayer_Click(object sender, EventArgs e) {
@@ -83,10 +95,24 @@ namespace Proiect_IA {
 
         private void button1_Click(object sender, EventArgs e) {
             onlineGame.StartServer(serverTextBox.Text);
+            this.Size = new Size(1050, 714);
+
+            this.serverBtn.Hide();
+            this.connectBtn.Hide();
+            this.serverTextBox.Hide();
+            this.connectTextBox.Hide();
+            this.btnBackToMenu.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e) {
             onlineGame.Connect(connectTextBox.Text);
+            this.Size = new Size(1050, 714);
+
+            this.serverBtn.Hide();
+            this.connectBtn.Hide();
+            this.serverTextBox.Hide();
+            this.connectTextBox.Hide();
+            this.btnBackToMenu.Hide();
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e) {
