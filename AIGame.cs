@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Proiect_IA {
-    class Game {
+    class AIGame {
         static int index = 0;
         static Box clickedBox = null;
         static Boolean clicked = false;
@@ -18,10 +18,10 @@ namespace Proiect_IA {
         private Player currentPlayer;
 
         private Form1 startingForm;
-        static public Box[,] board = new Box[8,8];
+        static public Box[,] board = new Box[8, 8];
         private List<Player> players = new List<Player>();
        
-        public Game(Form1 form) {
+        public AIGame(Form1 form) {
             startingForm = form;
             createTable();
 

@@ -102,6 +102,12 @@ namespace Proiect_IA {
 
         }
 
+        public void resetBox() {
+            panel.BackgroundImage = null;
+            isOccupied = false;
+            piece = new Piece(-1);
+        }
+
         public void addToJail(Player player) {
             foreach(var item in player.jails) {
                 if(item.piece.priority == -1) {

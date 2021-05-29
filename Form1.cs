@@ -13,6 +13,7 @@ namespace Proiect_IA {
     public partial class Form1 : Form {
         Game startGame;
         OnlineGame onlineGame;
+        AIGame aiGame;
 
         public Form1() {
             InitializeComponent();
@@ -25,6 +26,8 @@ namespace Proiect_IA {
                 startGame.pieceClick(i, j);
             if (onlineGame != null)
                 onlineGame.pieceClick(i, j);
+            if (aiGame != null)
+                aiGame.pieceClick(i, j);
         }
 
         public void Jail_Click(object sender, EventArgs e, int i, Player player) {
@@ -32,6 +35,8 @@ namespace Proiect_IA {
                 startGame.jailClick(i,player);
             if (onlineGame != null)
                 onlineGame.jailClick(i,player);
+            if (aiGame != null)
+                aiGame.jailClick(i, player);
         }
 
         public void Airport_Click(object sender, EventArgs e, int i, Player player) {
@@ -39,6 +44,8 @@ namespace Proiect_IA {
                 startGame.airportClick(i, player);
             if (onlineGame != null)
                 onlineGame.airportClick(i, player);
+            if (aiGame != null)
+                aiGame.airportClick(i, player);
         }
 
         private void btnSinglePlayer_Click(object sender, EventArgs e) {
@@ -55,6 +62,8 @@ namespace Proiect_IA {
         }
 
         private void btnMultiPlayer_Click(object sender, EventArgs e) {
+            this.label1.Hide();
+            this.label2.Hide();
             this.btnSinglePlayer.Hide();
             this.btnMultiPlayer.Hide();
             this.btnArtificialIntelligence.Hide();
@@ -78,7 +87,7 @@ namespace Proiect_IA {
             this.btnArtificialIntelligence.Hide();
             this.btnBackToMenu.Hide();
 
-            startGame = new Game(this);
+            aiGame = new AIGame(this);
         }
 
         private void btnBackToMenu_Click(object sender, EventArgs e) {
