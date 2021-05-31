@@ -155,8 +155,66 @@ namespace Proiect_IA {
                         break;
                 else
                     break;
+        }
+
+        public override List<Box> getAvailableMoves(Box[,] board) {
+            int Xcoord = this.x, Ycoord = this.y;
+            List<Box> availableMoves = new List<Box>();
+
+            //collum possible move under the rook
+            for (int i = 1; i < boardSize; i++)
+                if (Xcoord + i < boardSize)
+                    if (board[Xcoord + i, Ycoord].isOccupied == false) {
+                        availableMoves.Add(board[Xcoord + i, Ycoord]);
+                    } else if (board[Xcoord + i, Ycoord].piece.color != color) {
+                        availableMoves.Add(board[Xcoord + i, Ycoord]);
+                        break;
+                    } else
+                        break;
+                else
+                    break;
 
 
+            //raw possible move to the right of the rook
+            for (int i = 1; i < boardSize; i++)
+                if (Ycoord + i < boardSize)
+                    if (board[Xcoord, Ycoord + i].isOccupied == false) {
+                        availableMoves.Add(board[Xcoord, Ycoord + i]);
+                    } else if (board[Xcoord, Ycoord + i].piece.color != color) {
+                        availableMoves.Add(board[Xcoord, Ycoord + i]);
+                        break;
+                    } else
+                        break;
+                else
+                    break;
+
+            //collum possible move above the rook
+            for (int i = 1; i < boardSize; i++)
+                if (Xcoord - i >= 0)
+                    if (board[Xcoord - i, Ycoord].isOccupied == false) {
+                        availableMoves.Add(board[Xcoord - i, Ycoord]);
+                    } else if (board[Xcoord - i, Ycoord].piece.color != color) {
+                        availableMoves.Add(board[Xcoord - i, Ycoord]);
+                        break;
+                    } else
+                        break;
+                else
+                    break;
+
+            //possible move to the left of the rook
+            for (int i = 1; i < boardSize; i++)
+                if (Ycoord - i >= 0)
+                    if (board[Xcoord, Ycoord - i].isOccupied == false) {
+                        availableMoves.Add(board[Xcoord, Ycoord - i]);
+                    } else if (board[Xcoord, Ycoord - i].piece.color != color) {
+                        availableMoves.Add(board[Xcoord, Ycoord - i]);
+                        break;
+                    } else
+                        break;
+                else
+                    break;
+
+            return availableMoves;
         }
 
 

@@ -23,6 +23,12 @@ namespace Proiect_IA {
         }
 
 
+        public Piece getRandomPiece() {
+            Random r = new Random();
+            int rInt = r.Next(0, pieces.Count());
+            return pieces[rInt];
+        }
+
         public void enablePieces() {
             for (int i = 0; i < pieces.Count; i++) {
                 pieces[i].enable();
@@ -41,6 +47,7 @@ namespace Proiect_IA {
                 whitePieces(board);
  
         }
+
         private void whitePieces(Box[,] board) {
            
             for (int i = 0; i < 8; i++) {

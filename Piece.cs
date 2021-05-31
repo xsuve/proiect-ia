@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace Proiect_IA {
@@ -26,10 +27,14 @@ namespace Proiect_IA {
 
         }
 
-        public virtual void canMove( Box[,] board) {
+        public virtual void canMove(Box[,] board) {
 
         }
-        
+
+        public virtual List<Box> getAvailableMoves(Box[,] board) {
+            return null;
+        }
+
         public virtual void enable() {
 
         }
@@ -42,7 +47,7 @@ namespace Proiect_IA {
             throw new NotImplementedException();
         }
 
-        public virtual void newPosition(int Xcoord, int Ycoord) {
+        public virtual void setCoords(int Xcoord, int Ycoord) {
             x = Xcoord;
             y = Ycoord;
         }
