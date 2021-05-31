@@ -33,7 +33,6 @@ namespace Proiect_IA {
         }
 
         private bool winner() { 
-
             var piece = currentPlayer.pieces.Find(pi => pi is King);
 
             foreach (var pieces in players[index % 2].pieces)
@@ -177,6 +176,32 @@ namespace Proiect_IA {
             }
 
             winner();
+
+            // Random move
+            if (currentPlayer.color == Color.Black) {
+                randomMove();
+            }
+        }
+
+        private void randomMove() {
+            Piece randPiece;
+            List<Box> randMoves;
+
+            do {
+                randPiece = currentPlayer.getRandomPiece();
+                randMoves = randPiece.getAvailableMoves(board);
+            } while (randMoves.Count() <= 0);
+
+            Random r = new Random();
+            int rInt = r.Next(0, randMoves.Count());
+            Box randMove = randMoves[rInt];
+
+            if (randMove.piece != null && randMove.piece.color != currentPlayer.color) {
+                randMove.addToJail(players[index % 2]);
+            }
+
+            changePieces(board[randMove.x, randMove.y], board[randPiece.x, randPiece.y]);
+            switchPlayer();
         }
 
         private void AddToTable(int xCoord, int yCoord) {
@@ -325,16 +350,15 @@ namespace Proiect_IA {
         }
 
         public void changePieces(Box currentBoxClicked, Box clickedBox) {
-
             currentBoxClicked.SwitchBoxes(clickedBox);
 
             if (players[index % 2].pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y) != null)
-                players[index % 2].pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y).newPosition(0, 0);
+                players[index % 2].pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y).setCoords(0, 0);
 
             if(currentPlayer.pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y) != null) {
-                currentPlayer.pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y).newPosition(currentBoxClicked.x, currentBoxClicked.y);
+                currentPlayer.pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y).setCoords(currentBoxClicked.x, currentBoxClicked.y);
             } else {
-                clickedBox.piece.newPosition(currentBoxClicked.x, currentBoxClicked.y);
+                clickedBox.piece.setCoords(currentBoxClicked.x, currentBoxClicked.y);
                 currentPlayer.pieces.Add(clickedBox.piece);
             }
         }

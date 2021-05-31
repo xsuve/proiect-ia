@@ -29,8 +29,21 @@ namespace Proiect_IA {
         public override void canMove(Box[,] board) {
             Rook MyRook = new Rook(color, priority, this.x, this.y);
             Bishop MyBishop = new Bishop(color, priority, this.x, this.y);
-            MyBishop.canMove( board);
-            MyRook.canMove( board);
+            MyBishop.canMove(board);
+            MyRook.canMove(board);
+        }
+
+        public override List<Box> getAvailableMoves(Box[,] board) {
+            List<Box> availableMoves = new List<Box>();
+
+            Rook MyRook = new Rook(color, priority, this.x, this.y);
+            Bishop MyBishop = new Bishop(color, priority, this.x, this.y);
+            List<Box> myBishopMoves = MyBishop.getAvailableMoves(board);
+            List<Box> myRookMoves = MyRook.getAvailableMoves(board);
+
+            availableMoves = myBishopMoves.Concat(myRookMoves).ToList();
+
+            return availableMoves;
         }
     }
 }

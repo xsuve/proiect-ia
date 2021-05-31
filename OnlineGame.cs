@@ -467,19 +467,15 @@ namespace Proiect_IA {
             currentBoxClicked.SwitchBoxes(clickedBox);
 
             if (players[index % 2].pieces.Find(pi => pi.x == currentBoxClicked.x && pi.y == currentBoxClicked.y) != null)
-                players[index % 2].pieces.Find(pi => pi.x == currentBoxClicked.x && pi.y == currentBoxClicked.y).newPosition(0, 0);
+                players[index % 2].pieces.Find(pi => pi.x == currentBoxClicked.x && pi.y == currentBoxClicked.y).setCoords(0, 0);
 
-             if (currentPlayer.pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y) != null) {
-                 currentPlayer.pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y).newPosition(currentBoxClicked.x, currentBoxClicked.y);
+            if (currentPlayer.pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y) != null) {
+                 currentPlayer.pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y).setCoords(currentBoxClicked.x, currentBoxClicked.y);
             }
             else {
-                clickedBox.piece.newPosition(currentBoxClicked.x, currentBoxClicked.y);
+                clickedBox.piece.setCoords(currentBoxClicked.x, currentBoxClicked.y);
                 currentPlayer.pieces.Add(clickedBox.piece);
             }
-
-            
-
-           
         }
 
     }

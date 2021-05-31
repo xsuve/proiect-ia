@@ -203,5 +203,85 @@ namespace Proiect_IA {
                 }
 
         }
+
+        public override List<Box> getAvailableMoves(Box[,] board) {
+            int Xcoord = this.x, Ycoord = this.y;
+            List<Box> availableMoves = new List<Box>();
+
+            //upper right
+            if (Xcoord - 2 >= 0 && Ycoord + 1 < boardSize)
+                if (board[Xcoord - 2, Ycoord + 1].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord - 2, Ycoord + 1]);
+                } else
+                    if (board[Xcoord - 2, Ycoord + 1].piece.color != color) {
+                    availableMoves.Add(board[Xcoord - 2, Ycoord + 1]);
+                }
+
+            //upper left
+            if (Xcoord - 2 >= 0 && Ycoord - 1 >= 0)
+                if (board[Xcoord - 2, Ycoord - 1].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord - 2, Ycoord - 1]);
+                } else
+                    if (board[Xcoord - 2, Ycoord - 1].piece.color != color) {
+                    availableMoves.Add(board[Xcoord - 2, Ycoord - 1]);
+                }
+
+            //lower right
+            if (Xcoord + 2 < boardSize && Ycoord + 1 < boardSize)
+                if (board[Xcoord + 2, Ycoord + 1].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord + 2, Ycoord + 1]);
+                } else
+                    if (board[Xcoord + 2, Ycoord + 1].piece.color != color) {
+                    availableMoves.Add(board[Xcoord + 2, Ycoord + 1]);
+                }
+
+            ///lower left
+            if (Xcoord + 2 < boardSize && Ycoord - 1 >= 0)
+                if (board[Xcoord + 2, Ycoord - 1].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord + 2, Ycoord - 1]);
+                } else
+                    if (board[Xcoord + 2, Ycoord - 1].piece.color != color) {
+                    availableMoves.Add(board[Xcoord + 2, Ycoord - 1]);
+                }
+
+            //left upper
+            if (Xcoord - 1 >= 0 && Ycoord - 2 >= 0)
+                if (board[Xcoord - 1, Ycoord - 2].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord - 1, Ycoord - 2]);
+                } else
+                      if (board[Xcoord - 1, Ycoord - 2].piece.color != color) {
+                    availableMoves.Add(board[Xcoord - 1, Ycoord - 2]);
+                }
+
+
+            //left down
+            if (Xcoord + 1 < boardSize && Ycoord - 2 >= 0)
+                if (board[Xcoord + 1, Ycoord - 2].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord + 1, Ycoord - 2]);
+                } else
+                      if (board[Xcoord + 1, Ycoord - 2].piece.color != color) {
+                    availableMoves.Add(board[Xcoord + 1, Ycoord - 2]);
+                }
+
+            //right upper
+            if (Xcoord - 1 >= 0 && Ycoord + 2 < boardSize)
+                if (board[Xcoord - 1, Ycoord + 2].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord - 1, Ycoord + 2]);
+                } else
+                      if (board[Xcoord - 1, Ycoord + 2].piece.color != color) {
+                    availableMoves.Add(board[Xcoord - 1, Ycoord + 2]);
+                }
+
+            //right down
+            if (Xcoord + 1 < boardSize && Ycoord + 2 < boardSize)
+                if (board[Xcoord + 1, Ycoord + 2].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord + 1, Ycoord + 2]);
+                } else
+                      if (board[Xcoord + 1, Ycoord + 2].piece.color != color) {
+                    availableMoves.Add(board[Xcoord + 1, Ycoord + 2]);
+                }
+
+            return availableMoves;
+        }
     }
 }

@@ -164,9 +164,72 @@ namespace Proiect_IA {
                         break;
                 else
                     break;
+        }
 
 
+        public override List<Box> getAvailableMoves(Box[,] board) {
+            int Xcoord = this.x, Ycoord = this.y;
+            List<Box> availableMoves = new List<Box>();
 
+            //down right move
+            for (int i = 1; i < boardSize; i++)
+                if (Xcoord + i < boardSize && Ycoord + i < boardSize)
+                    if (board[Xcoord + i, Ycoord + i].isOccupied == false) {
+                        availableMoves.Add(board[Xcoord + i, Ycoord + i]);
+                    } else
+                        if (board[Xcoord + i, Ycoord + i].piece.color != color) {
+                        availableMoves.Add(board[Xcoord + i, Ycoord + i]);
+                        break;
+                    } else
+                        break;
+                else
+                    break;
+
+
+            //upper right move
+            for (int i = 1; i < boardSize; i++)
+                if (Xcoord - i >= 0 && Ycoord + i < boardSize)
+                    if (board[Xcoord - i, Ycoord + i].isOccupied == false) {
+                        availableMoves.Add(board[Xcoord - i, Ycoord + i]);
+                    } else
+                        if (board[Xcoord - i, Ycoord + i].piece.color != color) {
+                        availableMoves.Add(board[Xcoord - i, Ycoord + i]);
+                        break;
+                    } else
+                        break;
+                else
+                    break;
+
+
+            //down left move
+            for (int i = 1; i < boardSize; i++)
+                if (Xcoord + i < boardSize && Ycoord - i >= 0)
+                    if (board[Xcoord + i, Ycoord - i].isOccupied == false) {
+                        availableMoves.Add(board[Xcoord + i, Ycoord - i]);
+                    } else if (board[Xcoord + i, Ycoord - i].piece.color != color) {
+                        availableMoves.Add(board[Xcoord + i, Ycoord - i]);
+                        break;
+                    } else
+                        break;
+                else
+                    break;
+
+
+            //upper left move
+            for (int i = 1; i < boardSize; i++)
+                if (Xcoord - i >= 0 && Ycoord - i >= 0)
+                    if (board[Xcoord - i, Ycoord - i].isOccupied == false) {
+                        availableMoves.Add(board[Xcoord - i, Ycoord - i]);
+                    } else
+                        if (board[Xcoord - i, Ycoord - i].piece.color != color) {
+                        availableMoves.Add(board[Xcoord - i, Ycoord - i]);
+                        break;
+                    } else
+                        break;
+                else
+                    break;
+
+            return availableMoves;
         }
     }
 }

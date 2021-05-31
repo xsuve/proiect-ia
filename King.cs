@@ -248,6 +248,85 @@ namespace Proiect_IA {
 
         }
 
+        public override List<Box> getAvailableMoves(Box[,] board) {
+            int Xcoord = this.x, Ycoord = this.y;
+            List<Box> availableMoves = new List<Box>();
+
+            //down move
+            if (Xcoord + 1 < boardSize)
+                if (board[Xcoord + 1, Ycoord].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord + 1, Ycoord]);
+
+                } else if (board[Xcoord + 1, Ycoord].piece.color != color) {
+                    availableMoves.Add(board[Xcoord + 1, Ycoord]);
+                }
+
+
+            //upper move
+            if (Xcoord - 1 >= 0)
+                if (board[Xcoord - 1, Ycoord].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord - 1, Ycoord]);
+
+                } else if (board[Xcoord - 1, Ycoord].piece.color != color) {
+                    availableMoves.Add(board[Xcoord - 1, Ycoord]);
+                }
+
+
+            //right move
+            if (Ycoord + 1 < boardSize)
+                if (board[Xcoord, Ycoord + 1].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord, Ycoord + 1]);
+                } else if (board[Xcoord, Ycoord + 1].piece.color != color) {
+                    availableMoves.Add(board[Xcoord, Ycoord + 1]);
+                }
+
+
+            //left move
+            if (Ycoord - 1 >= 0)
+                if (board[Xcoord, Ycoord - 1].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord, Ycoord - 1]);
+                } else if (board[Xcoord, Ycoord - 1].piece.color != color) {
+                    availableMoves.Add(board[Xcoord, Ycoord - 1]);
+                }
+
+
+            //down right move
+            if (Xcoord + 1 < boardSize && Ycoord + 1 < boardSize)
+                if (board[Xcoord + 1, Ycoord + 1].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord + 1, Ycoord + 1]);
+                } else if (board[Xcoord + 1, Ycoord + 1].piece.color != color) {
+                    availableMoves.Add(board[Xcoord + 1, Ycoord + 1]);
+                }
+
+
+            //upper right move
+            if (Xcoord - 1 >= 0 && Ycoord + 1 < boardSize)
+                if (board[Xcoord - 1, Ycoord + 1].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord - 1, Ycoord + 1]);
+                } else if (board[Xcoord - 1, Ycoord + 1].piece.color != color) {
+                    availableMoves.Add(board[Xcoord - 1, Ycoord + 1]);
+                }
+
+
+            //down left move
+            if (Xcoord + 1 < boardSize && Ycoord - 1 >= 0)
+                if (board[Xcoord + 1, Ycoord - 1].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord + 1, Ycoord - 1]);
+                } else if (board[Xcoord + 1, Ycoord - 1].piece.color != color) {
+                    availableMoves.Add(board[Xcoord + 1, Ycoord - 1]);
+                }
+
+            //upper left move
+            if (Xcoord - 1 >= 0 && Ycoord - 1 >= 0)
+                if (board[Xcoord - 1, Ycoord - 1].isOccupied == false) {
+                    availableMoves.Add(board[Xcoord - 1, Ycoord - 1]);
+                } else if (board[Xcoord - 1, Ycoord - 1].piece.color != color) {
+                    availableMoves.Add(board[Xcoord - 1, Ycoord - 1]);
+                }
+
+            return availableMoves;
+        }
+
         public override void checkKingMove(int Xcoord, int Ycoord, Box[,] board) {
 
             //down move
