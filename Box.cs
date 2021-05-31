@@ -24,7 +24,7 @@ namespace Proiect_IA {
             panel = new Panel {
                 Location = new System.Drawing.Point(( j+1 ) * boxSize, (8-i) * boxSize),
                 Size = new System.Drawing.Size(boxSize, boxSize),
-                BackColor = (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1) ? Color.Moccasin : Color.BurlyWood
+                BackColor = (i % 2 == 0 && j % 2 == 0 || i % 2 == 1 && j % 2 == 1) ? Color.Moccasin : Color.BurlyWood  
             };          
             x = i;
             y = j;

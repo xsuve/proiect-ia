@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -9,6 +10,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 using System.Windows.Forms;
 
 namespace Proiect_IA {
@@ -21,6 +23,7 @@ namespace Proiect_IA {
         public static Boolean jailClicked = false;
         static Boolean airportClicked = false;
         private Player currentPlayer;
+        public Boolean myTurn;
 
         static public Box[,] board  = new Box[8, 8];
         private List<Player> players = new List<Player>();
@@ -29,8 +32,8 @@ namespace Proiect_IA {
         private TcpClient client;
         public StreamReader STR;
         public StreamWriter STW;
-        public string receive;
-        public int data_to_send;
+        public string data_to_send;
+        string data_received;
 
         public OnlineGame(Form1 form1) {
             startingForm = form1;
@@ -55,6 +58,7 @@ namespace Proiect_IA {
             startingForm.backgroundWorker2.WorkerSupportsCancellation = true;        //ability to cancel this thread
 
             //WhitePlayer TO DO
+            myTurn= true;
             StartGame();
 
         }
@@ -71,7 +75,9 @@ namespace Proiect_IA {
                     startingForm.backgroundWorker2.WorkerSupportsCancellation = true;        //ability to cancel this thread
 
                     //BlackPlAYER TO DO
+                    myTurn = false;
                     StartGame();
+
                 }
             }
             catch (Exception x) {
@@ -80,28 +86,71 @@ namespace Proiect_IA {
         }
 
         public void ReceiveData() {
-            while (client.Connected)
-                try {
+            while (client.Connected )
+            try {
+                    string receive = STR.ReadLine();
+                    if (data_received == receive)
+                        continue;
+                    else
+                        data_received = receive;
+                    string[] coords = data_received.Split('-');
 
-                    string data_received = STR.ReadLine();
-                    int data = Int32.Parse(data_received);
-                    //TO DO 
+                    if (!myTurn) {
+                        switch (coords[0]) {
+                            case "B":
+                                if (board[Int32.Parse(coords[1]), Int32.Parse(coords[2])].piece != null
+                                    && board[Int32.Parse(coords[1]), Int32.Parse(coords[2])].piece.color != currentPlayer.color) {
+                                    board[Int32.Parse(coords[1]), Int32.Parse(coords[2])].addToJail(players[index % 2]);
+                                }
+                                changePieces(board[Int32.Parse(coords[1]), Int32.Parse(coords[2])],
+                                             board[Int32.Parse(coords[3]), Int32.Parse(coords[4])]
+                                             );
+                                switchPlayer();
+                                myTurn = true;
+                                break;
+                            case "J":
+                                clickedBox = currentPlayer.jails[Int32.Parse(coords[1])];
+                                //Adaugare piesa pe tabla
+                                changePieces(board[Int32.Parse(coords[2]), Int32.Parse(coords[3])], clickedBox);
+                                clickedBox.panel.BackColor = Color.DarkGray;
 
+                                //Adaugare piesa adversar pe airport
+                                var airportPiece = players[index % 2].jails.OrderByDescending(i => i.piece.priority).First();
+                                airportPiece.addToAirport(players[index % 2]);
+                                airportPiece.panel.BackgroundImage = null;
+                                airportPiece.piece = new Piece(-1);
+
+                                switchPlayer();
+                                myTurn = true;
+                                break;
+                            case "A":
+                                clickedBox = currentPlayer.airport[Int32.Parse(coords[1])];
+                                changePieces(board[Int32.Parse(coords[2]), Int32.Parse(coords[3])], clickedBox);
+                                clickedBox.panel.BackColor = Color.Silver;
+
+                                switchPlayer();
+                                myTurn = true;
+                                break;
+                            default:
+                                MessageBox.Show("plm eroare!");
+                                break;
+                        }
+                    }
                 }
                 catch (Exception x) {
                     MessageBox.Show(x.Message.ToString());
                 }
         }
-        public void CreateDataToSend() {
+        public void PrepareToSend() {
 
-            startingForm.backgroundWorker2.RunWorkerAsync();
+            startingForm.backgroundWorker2.RunWorkerAsync(); 
+            SendData();
 
         }
         public void SendData() {
 
-            if (client.Connected) {
-               // WhiteMove = !WhiteMove;
-                STW.WriteLine(data_to_send.ToString());
+            if (client.Connected) {  
+                STW.WriteLine(data_to_send);
             }
             else {
                 MessageBox.Show("Send Faild ");
@@ -122,6 +171,8 @@ namespace Proiect_IA {
         }
 
         public void pieceClick(int xCoord, int yCoord) {
+            if (!myTurn)
+                return;
             if (clicked) {
                 secondClick(xCoord, yCoord);
             }
@@ -131,11 +182,14 @@ namespace Proiect_IA {
         }
 
         public void jailClick(int i, Player player) {
+            if (!myTurn)
+                return;
             if (!jailClicked) {
                 if (player.jails[i].piece.priority != -1 && currentPlayer.color == player.color) {
                     if (player.jails[i].piece.priority <= players[index % 2].jails.Max(pi => pi.piece.priority)) {
                         player.jails[i].panel.BackColor = Color.Khaki;
                         clickedBox = player.jails[i];
+                        data_to_send = "J-" + i.ToString();
                         jailClicked = true;
                     }
                     else {
@@ -151,10 +205,14 @@ namespace Proiect_IA {
         }
 
         public void airportClick(int i, Player player) {
+            if (!myTurn)
+                return;
+
             if (!airportClicked) {
                 if (player.airport[i].piece.priority != -1 && currentPlayer.color == player.color) {
                     player.airport[i].panel.BackColor = Color.Khaki;
                     clickedBox = player.airport[i];
+                    data_to_send = "A-" + i.ToString();
                     airportClicked = true;
                 }
             }
@@ -210,8 +268,13 @@ namespace Proiect_IA {
                     }
                 }
 
-                changePieces(board[xCoord, yCoord], clickedBox);
+                data_to_send = "B-" + xCoord.ToString() + "-" + yCoord.ToString() + "-" +
+                               clickedBox.x.ToString() + "-" + clickedBox.y.ToString();
 
+                changePieces(board[xCoord, yCoord], clickedBox);
+               
+                PrepareToSend();
+                myTurn = false;
             JumpSwitch:
 
                 ResetBoard();
@@ -221,7 +284,7 @@ namespace Proiect_IA {
                 clicked = false;
                 clickedBox = null;
                 //removeClickEvents();
-                //verificarePiesaAdversarPeBox();  TO DO
+                
             }
         }
 
@@ -246,6 +309,12 @@ namespace Proiect_IA {
             if (jailClicked) {
                 if (!board[xCoord, yCoord].isOccupied) {
                     if (clickedBox != null) {
+
+                        data_to_send = data_to_send +"-"+ xCoord.ToString() + "-" + yCoord.ToString(); 
+                              
+                        myTurn = !myTurn;
+                        PrepareToSend();
+
                         //Adaugare piesa pe tabla
                         changePieces(board[xCoord, yCoord], clickedBox);
                         //board[xCoord, yCoord].SwitchBoxes(clickedBox);
@@ -264,6 +333,11 @@ namespace Proiect_IA {
             }
             else {
                 if (!board[xCoord, yCoord].isOccupied) {
+                    data_to_send = data_to_send + "-" + xCoord.ToString() + "-" + yCoord.ToString();
+
+                    myTurn = !myTurn;
+                    PrepareToSend();
+
                     changePieces(board[xCoord, yCoord], clickedBox);
                     //board[xCoord, yCoord].SwitchBoxes(clickedBox);
                     clickedBox.panel.BackColor = Color.Silver;
@@ -392,10 +466,20 @@ namespace Proiect_IA {
 
             currentBoxClicked.SwitchBoxes(clickedBox);
 
-            if (players[index % 2].pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y) != null)
-                players[index % 2].pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y).newPosition(0, 0);
+            if (players[index % 2].pieces.Find(pi => pi.x == currentBoxClicked.x && pi.y == currentBoxClicked.y) != null)
+                players[index % 2].pieces.Find(pi => pi.x == currentBoxClicked.x && pi.y == currentBoxClicked.y).newPosition(0, 0);
 
-            currentPlayer.pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y).newPosition(currentBoxClicked.x, currentBoxClicked.y);
+             if (currentPlayer.pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y) != null) {
+                 currentPlayer.pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y).newPosition(currentBoxClicked.x, currentBoxClicked.y);
+            }
+            else {
+                clickedBox.piece.newPosition(currentBoxClicked.x, currentBoxClicked.y);
+                currentPlayer.pieces.Add(clickedBox.piece);
+            }
+
+            
+
+           
         }
 
     }
