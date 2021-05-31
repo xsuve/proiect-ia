@@ -40,6 +40,8 @@ namespace Proiect_IA {
             if (board[piece.x, piece.y].nextLegalMove == true) {
                 board[piece.x, piece.y].panel.BackColor = Color.Red;      
             }
+
+            ResetBoard();
             return false;
         }
 

@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -167,6 +166,8 @@ namespace Proiect_IA {
             if (board[piece.x, piece.y].nextLegalMove == true) {
                 board[piece.x, piece.y].panel.BackColor = Color.Red;
             }
+
+            ResetBoard();
             return false;
         }
 
