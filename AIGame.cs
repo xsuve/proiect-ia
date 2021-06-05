@@ -9,6 +9,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Proiect_IA {
+    public class MinMaxMove {
+        public Box initialMove;
+        public Box nextMove;
+        public int value;
+
+        public MinMaxMove(Box initialMove, Box nextMove, int value) {
+            this.initialMove = initialMove;
+            this.nextMove = nextMove;
+            this.value = value;
+        }
+    };
+
+
     class AIGame {
         static int index = 0;
         static Box clickedBox = null;
@@ -186,8 +199,8 @@ namespace Proiect_IA {
         }
 
         private void randomMove() {
-            Piece randPiece;
-            List<Box> randMoves;
+            MinMaxMove randMove = calcBestMove(2, currentPlayer.color);
+            /*List<Box> randMoves;
 
             do {
                 randPiece = currentPlayer.getRandomPiece();
@@ -200,9 +213,9 @@ namespace Proiect_IA {
 
             if (randMove.piece != null && randMove.piece.color != currentPlayer.color) {
                 randMove.addToJail(players[index % 2]);
-            }
+            }*/
 
-            changePieces(board[randMove.x, randMove.y], board[randPiece.x, randPiece.y]);
+            changePieces(board[randMove.initialMove.x, randMove.initialMove.y], board[randMove.nextMove.x, randMove.nextMove.y]);
             switchPlayer();
         }
 
@@ -363,6 +376,108 @@ namespace Proiect_IA {
                 clickedBox.piece.setCoords(currentBoxClicked.x, currentBoxClicked.y);
                 currentPlayer.pieces.Add(clickedBox.piece);
             }
+        }
+
+
+        // Minimax
+        public int value = 0;
+        public MinMaxMove calcBestMove(int depth, Color playerColor, Boolean isMaximizingPlayer = true) {
+            if(depth == 0) {
+                value = evaluateBoard(playerColor);
+                return new MinMaxMove(null, null, value);
+            }
+
+            Box bestMove = null;
+            Box initialMove = null;
+            Dictionary<Box, Box> possibleMoves = getPossibleMoves(playerColor);
+
+            int bestMoveValue = isMaximizingPlayer ? int.MinValue : int.MaxValue;
+
+            // Random possible moves
+            Random rand = new Random();
+            possibleMoves.OrderBy(item => rand.Next());
+
+            // Search through all possible moves
+            foreach(var possibleMove in possibleMoves) {
+                Box move = possibleMove.Value;
+
+                changePiecesIA(possibleMove.Key, possibleMove.Value);
+
+                value = calcBestMove(depth - 1, playerColor, !isMaximizingPlayer).value;
+
+                if(isMaximizingPlayer) {
+                    if(value > bestMoveValue) {
+                        bestMoveValue = value;
+                        bestMove = move;
+                        initialMove = possibleMove.Key;
+                    }
+                } else {
+                    if(value < bestMoveValue) {
+                        bestMoveValue = value;
+                        bestMove = move;
+                        initialMove = possibleMove.Key;
+                    }
+                }
+
+                changePiecesIA(possibleMove.Value, possibleMove.Key);
+            }
+
+            if(possibleMoves.Count > 1) {
+                return new MinMaxMove(initialMove, bestMove, value);
+            } else {
+                return new MinMaxMove(possibleMoves.First().Key, possibleMoves.First().Value, value);
+            }
+        }
+
+        // Get possible moves
+        public Dictionary<Box, Box> getPossibleMoves(Color playerColor) {
+            Dictionary<Box, Box> allPossibleMoves = new Dictionary<Box, Box>();
+            Player myPlayer = players.Find(pl => pl.color == playerColor);
+
+            foreach (var myPiece in myPlayer.pieces) {
+                List<Box> onePieceMove = myPiece.getAvailableMoves(board);
+                if (onePieceMove != null) {
+                    foreach (var item in onePieceMove) {
+                        allPossibleMoves[board[myPiece.x, myPiece.y]] = item;
+                    }
+                }
+            }
+
+            return allPossibleMoves;
+
+        }
+
+        // Change pieces
+        public void changePiecesIA(Box nextMove, Box currentMove) {
+            currentMove.SwitchBoxesIA(nextMove);
+
+            if (players[index % 2].pieces.Find(pi => pi.x == currentMove.x && pi.y == currentMove.y) != null)
+                players[index % 2].pieces.Find(pi => pi.x == currentMove.x && pi.y == currentMove.y).setCoords(0, 0);
+
+            if (currentPlayer.pieces.Find(pi => pi.x == currentMove.x && pi.y == currentMove.y) != null) {
+                currentPlayer.pieces.Find(pi => pi.x == currentMove.x && pi.y == currentMove.y).setCoords(nextMove.x, nextMove.y);
+            } else {
+                if (currentMove.piece.priority != -1) {
+                    currentMove.piece.setCoords(nextMove.x, nextMove.y);
+                    currentPlayer.pieces.Add(currentMove.piece);
+                }
+            }
+        }
+
+        // Evaluate board
+        public int evaluateBoard(Color playerColor) {
+            int _value = 0;
+            Player myPlayer = players.Find(pl => pl.color == playerColor);
+            foreach (var myPiece in myPlayer.pieces) {
+                _value += myPiece.priority;
+            }
+
+            myPlayer = players.Find(pl => pl.color != playerColor);
+            foreach (var myPiece in myPlayer.pieces) {
+                _value -= myPiece.priority;
+            }
+
+            return _value;
         }
     }
 }

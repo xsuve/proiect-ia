@@ -102,6 +102,14 @@ namespace Proiect_IA {
 
         }
 
+        public void SwitchBoxesIA(Box move) {
+            isOccupied = false;
+            move.isOccupied = true;
+
+            piece = new Piece(-1);
+            move.piece = this.piece;
+        }
+
         public void resetBox() {
             panel.BackgroundImage = null;
             isOccupied = false;
