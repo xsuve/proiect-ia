@@ -102,12 +102,12 @@ namespace Proiect_IA {
 
         }
 
-        public void SwitchBoxesIA(Box move) {
-            isOccupied = false;
-            move.isOccupied = true;
+        public void SwitchBoxesIA(Box initialMove) {
+            isOccupied = true;
+            initialMove.isOccupied = false;
 
-            piece = new Piece(-1);
-            move.piece = this.piece;
+            piece = initialMove.piece;
+            initialMove.piece = null;
         }
 
         public void resetBox() {
