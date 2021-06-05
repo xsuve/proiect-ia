@@ -9,7 +9,7 @@ namespace Proiect_IA {
     class Queen : Piece {
         public Queen(Color color, int priority, int x, int y) : base(color, priority, x, y) {
             image = color == Color.White ? (Proiect_IA.Properties.Resources.queen_w) : (Proiect_IA.Properties.Resources.queen_b_d);
-            priority = 4;
+            priority = 1000;
         }
 
         public override void enable() {

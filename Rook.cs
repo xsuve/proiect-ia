@@ -10,7 +10,7 @@ namespace Proiect_IA {
         public Rook(Color color, int priority, int x, int y) : base(color, priority, x, y ) {
             moved = false;
             image = color == Color.White ? (Proiect_IA.Properties.Resources.rook_w) : (Proiect_IA.Properties.Resources.rook_b_d);
-            priority = 3;
+            priority = 525;
         }
 
         public override void enable() {

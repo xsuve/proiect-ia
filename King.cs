@@ -11,7 +11,7 @@ namespace Proiect_IA {
         public King(Color color, int priority, int x, int y) : base(color, priority, x, y) {
             moved = false;
             image = color == Color.White ? (Proiect_IA.Properties.Resources.king_w) : (Proiect_IA.Properties.Resources.king_b_d);
-            priority = 5;
+            priority = 10000;
         }
 
         public override void enable() {

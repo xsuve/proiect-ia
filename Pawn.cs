@@ -9,7 +9,7 @@ namespace Proiect_IA {
     internal class Pawn : Piece {
         public Pawn(Color color, int priority, int x, int y) : base(color, priority, x, y) {
             image = color == Color.White ? (Proiect_IA.Properties.Resources.pawn_w) : (Proiect_IA.Properties.Resources.pawn_b_d);
-            priority = 1;
+            priority = 100;
         }
 
         public override void enable() {

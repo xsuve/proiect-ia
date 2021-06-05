@@ -9,7 +9,7 @@ namespace Proiect_IA {
     class Knight : Piece {
         public Knight(Color color, int priority, int x, int y) : base(color, priority, x, y) {
             image = color == Color.White ? (Proiect_IA.Properties.Resources.knight_w) : (Proiect_IA.Properties.Resources.knight_b_d);
-            priority = 2;
+            priority = 350;
         }
 
         public override void enable() {

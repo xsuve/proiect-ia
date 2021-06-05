@@ -45,16 +45,16 @@ namespace Proiect_IA {
             createJails();
         }
 
-        private bool winner() { 
-            //var piece = currentPlayer.pieces.Find(pi => pi is King);
+        private bool winner() {
+            var piece = currentPlayer.pieces.Find(pi => pi is King);
 
-            //foreach (var pieces in players[index % 2].pieces)
-            //    pieces.canMove(board);
-            //if (board[piece.x, piece.y].nextLegalMove == true) {
-            //    board[piece.x, piece.y].panel.BackColor = Color.Red;      
-            //}
+            foreach (var pieces in players[index % 2].pieces)
+                pieces.canMove(board);
+            if (board[piece.x, piece.y].nextLegalMove == true) {
+                board[piece.x, piece.y].panel.BackColor = Color.Red;
+            }
 
-            //ResetBoard();
+            ResetBoard();
             return false;
         }
 
@@ -202,27 +202,6 @@ namespace Proiect_IA {
             if (currentPlayer.color == Color.Black) {
                 randomMove();
             }
-        }
-
-        private void randomMove() {
-            MinMaxMove randMove = calcBestMove(2, currentPlayer.color);
-            /*List<Box> randMoves;
-
-            do {
-                randPiece = currentPlayer.getRandomPiece();
-                randMoves = randPiece.getAvailableMoves(board);
-            } while (randMoves.Count() <= 0);
-
-            Random r = new Random();
-            int rInt = r.Next(0, randMoves.Count());
-            Box randMove = randMoves[rInt];
-
-            if (randMove.piece != null && randMove.piece.color != currentPlayer.color) {
-                randMove.addToJail(players[index % 2]);
-            }*/
-
-            changePieces(board[randMove.nextMove.x, randMove.nextMove.y], board[randMove.initialMove.x, randMove.initialMove.y]);
-            switchPlayer();
         }
 
         private void AddToTable(int xCoord, int yCoord) {
@@ -373,8 +352,8 @@ namespace Proiect_IA {
         public void changePieces(Box currentBoxClicked, Box clickedBox) {
             currentBoxClicked.SwitchBoxes(clickedBox);
 
-            if (players[index % 2].pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y) != null)
-                players[index % 2].pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y).setCoords(0, 0);
+            if (players[index % 2].pieces.Find(pi => pi.x == currentBoxClicked.x && pi.y == currentBoxClicked.y) != null)
+                players[index % 2].pieces.RemoveAt(players[index % 2].pieces.FindIndex(pi => pi.x == currentBoxClicked.x && pi.y == currentBoxClicked.y));
 
             if(currentPlayer.pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y) != null) {
                 currentPlayer.pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y).setCoords(currentBoxClicked.x, currentBoxClicked.y);
@@ -383,13 +362,22 @@ namespace Proiect_IA {
                 currentPlayer.pieces.Add(clickedBox.piece);
             }
         }
+        private void randomMove() {
+            MinMaxMove randMove = calcBestMove(5, currentPlayer.color);
 
+            
+            if (board[randMove.nextMove.x, randMove.nextMove.y].piece != null && board[randMove.nextMove.x, randMove.nextMove.y].piece.color != currentPlayer.color) {
+                board[randMove.nextMove.x, randMove.nextMove.y].addToJail(players[index % 2]);
+            }
+  
 
+            changePieces(board[randMove.nextMove.x, randMove.nextMove.y], board[randMove.initialMove.x, randMove.initialMove.y]);
+
+            switchPlayer();
+        }
         // Minimax
         public int value = 0;
         public MinMaxMove calcBestMove(int depth, Color playerColor, Boolean isMaximizingPlayer = true) {
-
-            List<Piece> piecesTakenByAI = new List<Piece>();
 
             if(depth == 0) {
                 value = evaluateBoard(playerColor);
@@ -403,11 +391,13 @@ namespace Proiect_IA {
             int bestMoveValue = isMaximizingPlayer ? int.MinValue : int.MaxValue;
 
             // Random possible moves
-            // Random rand = new Random();
-            //possibleMoves.OrderBy(item => rand.Next());
+            Random rand = new Random();
+            var shuffled = possibleMoves.OrderBy(item => rand.Next()).ToList();
+            possibleMoves.OrderBy(item => Guid.NewGuid());
 
             // Search through all possible moves
-            foreach(var possibleMove in possibleMoves) {
+            foreach(var possibleMove in shuffled) {
+                List<Piece> piecesTakenByAI = new List<Piece>();
                 Box move = possibleMove.Value;  
                 changePiecesIA(possibleMove.Value, possibleMove.Key, piecesTakenByAI);
 
@@ -433,14 +423,37 @@ namespace Proiect_IA {
             if(possibleMoves.Count > 1) {
                 return new MinMaxMove(initialMove, bestMove, value);
             } else {
-                return new MinMaxMove(possibleMoves.First().Key, possibleMoves.First().Value, value);
+                return new MinMaxMove(shuffled.First().Key, shuffled.First().Value, value);
+            }
+        }
+
+        public void changePiecesIA(Box nextMove, Box currentMove, List<Piece> piecesTakenByAI) {
+
+            nextMove.SwitchBoxesIA(currentMove);
+            //setare coordonate in afara tablei, piesa trece in jail
+            if (players[index % 2].pieces.Find(pi => pi.x == nextMove.x && pi.y == nextMove.y) != null) {
+                piecesTakenByAI.Add(players[index % 2].pieces.Find(pi => pi.x == nextMove.x && pi.y == nextMove.y));
+                players[index % 2].pieces.RemoveAt(players[index % 2].pieces.FindIndex(pi => pi.x == nextMove.x && pi.y == nextMove.y));
+
+            }
+            //Trecere piese pe noile coordonate
+            if (currentPlayer.pieces.Find(pi => pi.x == currentMove.x && pi.y == currentMove.y) != null) {
+                currentPlayer.pieces.Find(pi => pi.x == currentMove.x && pi.y == currentMove.y).setCoords(nextMove.x, nextMove.y);
             }
         }
 
         private void undoMoves(Box nextMove, Box initialMove, List<Piece> piecesTakenByAI) {
+
             initialMove.SwitchBoxesIA(nextMove);
-            foreach(var piece in piecesTakenByAI) {
-                players[index % 2].pieces.Add(piece);
+
+            if (currentPlayer.pieces.Find(pi => pi.x == nextMove.x && pi.y == nextMove.y) != null) {
+                currentPlayer.pieces.Find(pi => pi.x == nextMove.x && pi.y == nextMove.y).setCoords(initialMove.x, initialMove.y);
+            }
+
+             foreach(var piece in piecesTakenByAI) {
+                 players[index % 2].pieces.Add(piece);
+                 board[piece.x, piece.y].piece = piece;
+                 board[piece.x, piece.y].isOccupied = true;
             }
         }
 
@@ -450,11 +463,9 @@ namespace Proiect_IA {
             Player myPlayer = players.Find(pl => pl.color == playerColor);
 
             foreach (var myPiece in myPlayer.pieces) {
-       //         if (myPiece.x == 4 && myPiece.y == 2)
-         //           MessageBox.Show("");
                 List<Box> onePieceMove = myPiece.getAvailableMoves(board);
                 if (onePieceMove != null) {
-                    foreach (var item in onePieceMove) {
+                    foreach (var item in onePieceMove) {   
                         allPossibleMoves[board[myPiece.x, myPiece.y]] = item;
                     }
                 }
@@ -462,23 +473,6 @@ namespace Proiect_IA {
 
             return allPossibleMoves;
 
-        }
-
-        // Change pieces
-        public void changePiecesIA(Box nextMove, Box currentMove, List<Piece> piecesTakenByAI) {
-
-            nextMove.SwitchBoxesIA(currentMove);
-            //setare coordonate in afara tablei, piesa trece in jail
-            if (players[index % 2].pieces.Find(pi => pi.x == nextMove.x && pi.y == nextMove.y) != null) {
-                piecesTakenByAI.Add(players[index % 2].pieces.Find(pi => pi.x == nextMove.x && pi.y == nextMove.y));
-                players[index % 2].pieces.Find(pi => pi.x == nextMove.x && pi.y == nextMove.y).setCoords(-1, -1);
-                players[index % 2].pieces.RemoveAt(players[index % 2].pieces.FindIndex(pi => pi.x == -1 && pi.y == -1));
-
-            }
-            //Trecere piese pe noile coordonate
-            if (currentPlayer.pieces.Find(pi => pi.x == currentMove.x && pi.y == currentMove.y) != null) {
-                currentPlayer.pieces.Find(pi => pi.x == currentMove.x && pi.y == currentMove.y).setCoords(nextMove.x, nextMove.y);
-            }
         }
 
         // Evaluate board

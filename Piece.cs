@@ -23,6 +23,14 @@ namespace Proiect_IA {
             this.priority = priority;
         }
 
+        public Piece(Piece copiaza) {
+            x = copiaza.x;
+            y = copiaza.y;
+            color = copiaza.color;
+            image = copiaza.image;
+            priority = copiaza.priority;
+        }
+
         public virtual void Move(int Xcoord, int Ycoord, Box[,] board) {
 
         }
