@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Proiect_IA {
-    public class MinMaxMove {
+    public class MiniMaxMove {
         public Box initialMove;
         public Box nextMove;
         public int value;
 
-        public MinMaxMove(Box initialMove, Box nextMove, int value) {
+        public MiniMaxMove(Box initialMove, Box nextMove, int value) {
             this.initialMove = initialMove;
             this.nextMove = nextMove;
             this.value = value;
@@ -198,9 +198,10 @@ namespace Proiect_IA {
 
             winner();
 
-            // Random move
+
+            // AI Move
             if (currentPlayer.color == Color.Black) {
-                randomMove();
+                aiMove();
             }
         }
 
@@ -362,26 +363,27 @@ namespace Proiect_IA {
                 currentPlayer.pieces.Add(clickedBox.piece);
             }
         }
-        private void randomMove() {
-            MinMaxMove randMove = calcBestMove(5, currentPlayer.color);
 
-            
-            if (board[randMove.nextMove.x, randMove.nextMove.y].piece != null && board[randMove.nextMove.x, randMove.nextMove.y].piece.color != currentPlayer.color) {
-                board[randMove.nextMove.x, randMove.nextMove.y].addToJail(players[index % 2]);
+        private void aiMove() {
+            MiniMaxMove mmMove = calcBestMove(4, currentPlayer.color);
+
+            if (board[mmMove.nextMove.x, mmMove.nextMove.y].piece != null && board[mmMove.nextMove.x, mmMove.nextMove.y].piece.color != currentPlayer.color) {
+                board[mmMove.nextMove.x, mmMove.nextMove.y].addToJail(players[index % 2]);
             }
   
-
-            changePieces(board[randMove.nextMove.x, randMove.nextMove.y], board[randMove.initialMove.x, randMove.initialMove.y]);
+            changePieces(board[mmMove.nextMove.x, mmMove.nextMove.y], board[mmMove.initialMove.x, mmMove.initialMove.y]);
 
             switchPlayer();
         }
+
+
         // Minimax
         public int value = 0;
-        public MinMaxMove calcBestMove(int depth, Color playerColor, Boolean isMaximizingPlayer = true) {
+        public MiniMaxMove calcBestMove(int depth, Color playerColor, Boolean isMaximizingPlayer = true) {
 
             if(depth == 0) {
                 value = evaluateBoard(playerColor);
-                return new MinMaxMove(null, null, value);
+                return new MiniMaxMove(null, null, value);
             }
 
             Box bestMove = null;
@@ -421,9 +423,9 @@ namespace Proiect_IA {
             }
 
             if(possibleMoves.Count > 1) {
-                return new MinMaxMove(initialMove, bestMove, value);
+                return new MiniMaxMove(initialMove, bestMove, value);
             } else {
-                return new MinMaxMove(shuffled.First().Key, shuffled.First().Value, value);
+                return new MiniMaxMove(shuffled.First().Key, shuffled.First().Value, value);
             }
         }
 
