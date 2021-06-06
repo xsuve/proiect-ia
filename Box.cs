@@ -43,7 +43,7 @@ namespace Proiect_IA {
             y = j;
             isOccupied = false;
             nextLegalMove = false;
-            piece = new Piece(Color.Red, k, 0, 0);
+            piece = null;
         }
 
         public void AddPiece(Piece piece) {
@@ -98,7 +98,7 @@ namespace Proiect_IA {
             clickedBox.isOccupied = false;
 
             piece = clickedBox.piece;
-            clickedBox.piece = new Piece(-1);
+            clickedBox.piece = null;
 
         }
 
@@ -118,7 +118,7 @@ namespace Proiect_IA {
 
         public void addToJail(Player player) {
             foreach(var item in player.jails) {
-                if(item.piece.priority == -1) {
+                if(item.piece == null) {
                     item.panel.BackgroundImage = this.panel.BackgroundImage;
                     item.piece = this.piece;
                     break;
@@ -128,7 +128,7 @@ namespace Proiect_IA {
 
         public void addToAirport(Player player) {
             foreach (var item in player.airport) {
-                if (item.piece.priority == -1) {
+                if (item.piece == null) {
                     item.panel.BackgroundImage = this.panel.BackgroundImage;
                     item.piece = this.piece;
                     break;
