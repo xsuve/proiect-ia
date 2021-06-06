@@ -96,7 +96,9 @@ namespace Proiect_IA {
         public void jailClick(int i, Player player) {
             if (!jailClicked) {
                 if (player.jails[i].piece != null && currentPlayer.color == player.color) {
-                    if (player.jails[i].piece.priority <= players[index % 2].jails.Max(pi => pi.piece.priority)) {
+                    if (players[index % 2].jails.FindAll(pi => pi.piece != null).Count > 0 &&
+                        player.jails[i].piece.priority <= players[index % 2].jails.FindAll(pi => pi.piece != null).Max(pi => pi.piece.priority)
+                        ) {
                         player.jails[i].panel.BackColor = Color.Khaki;
                         clickedBox = player.jails[i];
                         jailClicked = true;
@@ -220,7 +222,7 @@ namespace Proiect_IA {
 
             if (chess()) {
                 if (chessMate())
-                    MessageBox.Show("Plm, Gata joaca, Mars la munca!");
+                    MessageBox.Show("Check Mate!");
                 else
                     board[currentPlayer.pieces.Find(pi => pi is King).x, currentPlayer.pieces.Find(pi => pi is King).y].panel.BackColor = Color.Red;
             }
@@ -242,7 +244,7 @@ namespace Proiect_IA {
                         clickedBox.panel.BackColor = Color.DarkGray;
 
                         //Adaugare piesa adversar pe airport
-                        var airportPiece = players[index % 2].jails.OrderByDescending(i => i.piece.priority).First();
+                        var airportPiece = players[index % 2].jails.FindAll(pi => pi.piece != null).OrderByDescending(i => i.piece.priority).First();
                         airportPiece.addToAirport(players[index % 2]);
                         airportPiece.panel.BackgroundImage = null;
                         airportPiece.piece = null;

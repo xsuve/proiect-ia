@@ -208,7 +208,7 @@ namespace Proiect_IA {
 
             if (chess()) {
                 if(chessMate())
-                    MessageBox.Show("Plm, Gata joaca, Mars la munca!");
+                    MessageBox.Show("Check Mate!");
                 else
                     board[currentPlayer.pieces.Find(pi => pi is King).x, currentPlayer.pieces.Find(pi => pi is King).y].panel.BackColor = Color.Red;
             }
