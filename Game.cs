@@ -48,6 +48,7 @@ namespace Proiect_IA {
         }
 
         private bool chessMate() {
+            ResetBoard();
             Dictionary<Box, Box> possibleMoves = getPossibleMoves(currentPlayer.color);
             foreach (var possibleMove in possibleMoves) {
 
@@ -102,7 +103,7 @@ namespace Proiect_IA {
 
         public void airportClick(int i, Player player) {
             if (!airportClicked) {
-                if (player.airport[i].piece.priority != -1 && currentPlayer.color == player.color) {
+                if (player.airport[i].piece != null && currentPlayer.color == player.color) {
                     player.airport[i].panel.BackColor = Color.Khaki;
                     clickedBox = player.airport[i];
                     airportClicked = true;

@@ -106,8 +106,13 @@ namespace Proiect_IA {
             isOccupied = true;
             initialMove.isOccupied = false;
 
+            Piece swapPiece = piece;
             piece = initialMove.piece;
-            initialMove.piece = null;
+            if(piece != null)
+                initialMove.piece = swapPiece;
+            else 
+                initialMove.piece = swapPiece;
+            
         }
 
         public void resetBox() {
