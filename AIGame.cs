@@ -48,6 +48,10 @@ namespace Proiect_IA {
         private bool winner() {
             var piece = currentPlayer.pieces.Find(pi => pi is King);
 
+            if(piece == null) {
+                return true;
+            }
+
             foreach (var pieces in players[index % 2].pieces)
                 pieces.canMove(board);
             if (board[piece.x, piece.y].nextLegalMove == true) {
@@ -102,7 +106,6 @@ namespace Proiect_IA {
             if (jailClicked || airportClicked) {
                 if (clickedBox.piece is Pawn && xCoord != 0 && xCoord != 7) {
                     AddToTable(xCoord, yCoord);
-                } else {
                     return;
                 }
 
@@ -359,8 +362,8 @@ namespace Proiect_IA {
             if(currentPlayer.pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y) != null) {
                 currentPlayer.pieces.Find(pi => pi.x == clickedBox.x && pi.y == clickedBox.y).setCoords(currentBoxClicked.x, currentBoxClicked.y);
             } else {
-                clickedBox.piece.setCoords(currentBoxClicked.x, currentBoxClicked.y);
-                currentPlayer.pieces.Add(clickedBox.piece);
+                currentBoxClicked.piece.setCoords(currentBoxClicked.x, currentBoxClicked.y);
+                currentPlayer.pieces.Add(currentBoxClicked.piece);
             }
         }
 
