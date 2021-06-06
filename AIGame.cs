@@ -368,7 +368,7 @@ namespace Proiect_IA {
         }
 
         private void aiMove() {
-            MiniMaxMove mmMove = calcBestMove(4, currentPlayer.color);
+            MiniMaxMove mmMove = calcBestMove(6, currentPlayer.color);
 
             if (board[mmMove.nextMove.x, mmMove.nextMove.y].piece != null && board[mmMove.nextMove.x, mmMove.nextMove.y].piece.color != currentPlayer.color) {
                 board[mmMove.nextMove.x, mmMove.nextMove.y].addToJail(players[index % 2]);
@@ -382,7 +382,7 @@ namespace Proiect_IA {
 
         // Minimax
         public int value = 0;
-        public MiniMaxMove calcBestMove(int depth, Color playerColor, Boolean isMaximizingPlayer = true) {
+        public MiniMaxMove calcBestMove(int depth, Color playerColor, Boolean isMaximizingPlayer = true, int alpha = int.MinValue, int beta = int.MaxValue) {
 
             if(depth == 0) {
                 value = evaluateBoard(playerColor);
@@ -406,7 +406,7 @@ namespace Proiect_IA {
                 Box move = possibleMove.Value;  
                 changePiecesIA(possibleMove.Value, possibleMove.Key, piecesTakenByAI);
 
-                value = calcBestMove(depth - 1, playerColor, !isMaximizingPlayer).value;
+                value = calcBestMove(depth - 1, playerColor, !isMaximizingPlayer, alpha, beta).value;
 
                 if(isMaximizingPlayer) {
                     if(value > bestMoveValue) {
@@ -414,15 +414,23 @@ namespace Proiect_IA {
                         bestMove = move;
                         initialMove = possibleMove.Key;
                     }
+
+                    alpha = Math.Max(alpha, value);
                 } else {
                     if(value < bestMoveValue) {
                         bestMoveValue = value;
                         bestMove = move;
                         initialMove = possibleMove.Key;
                     }
+
+                    beta = Math.Min(beta, value);
                 }
+
                 undoMoves(possibleMove.Value, possibleMove.Key, piecesTakenByAI);
                 
+                if(beta <= alpha) {
+                    break;
+                }
             }
 
             if(possibleMoves.Count > 1) {
