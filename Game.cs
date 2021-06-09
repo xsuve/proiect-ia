@@ -171,13 +171,10 @@ namespace Proiect_IA {
                         goto JumpSwitch;
                     }
                 }
-                else {
 
-                    if (clickedBox.piece is King && clickedBox.piece is Rook) {
-                        clickedBox.piece.moved = true;
-                    }
+                if (clickedBox.piece is King || clickedBox.piece is Rook) {
+                    clickedBox.piece.moved = true;
                 }
-
                 changePieces(board[xCoord, yCoord], clickedBox);
 
             JumpSwitch:               

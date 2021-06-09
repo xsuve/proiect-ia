@@ -56,31 +56,44 @@ namespace Proiect_IA {
                 board[piece.x, piece.y].panel.BackColor = Color.Red;
                 return true;
             }
-
+            ResetBoard();
             return false;
         }
 
         private bool chessMate() {
+            Piece taken;
             Dictionary<Box, Box> possibleMoves = getPossibleMoves(currentPlayer.color);
             foreach (var possibleMove in possibleMoves) {
-
+                if (possibleMove.Value.piece != null)
+                    taken = possibleMove.Value.piece;
+                else
+                    taken = null;
                 doMoves(possibleMove.Value, possibleMove.Key);
 
                 //Testare daca inca este in sah
                 var piece = currentPlayer.pieces.Find(pi => pi is King);
                 foreach (var pieces in players[index % 2].pieces)
                     pieces.canMove(board);
-                if (board[piece.x, piece.y].nextLegalMove == false) {
-                    ResetBoard();
+
+                if (board[piece.x, piece.y].nextLegalMove == false) {  
                     undoMoves(possibleMove.Value, possibleMove.Key);
+
+                    if (taken != null)
+                        players[index % 2].pieces.Add(taken);
+
+                    ResetBoard();
                     board[piece.x, piece.y].panel.BackColor = Color.Red;
+
                     return false;
                 }
                 ResetBoard();
-
+                board[piece.x, piece.y].panel.BackColor = Color.Red;
                 undoMoves(possibleMove.Value, possibleMove.Key);
+                if (taken != null)
+                    players[index % 2].pieces.Add(taken);
 
             }
+            ResetBoard();
             return true;
         }
 
@@ -184,12 +197,12 @@ namespace Proiect_IA {
                         board[xCoord, 4].SwitchBoxes(board[xCoord, 7]);
                         goto JumpSwitch;
                     }
-                } else {
+                } 
 
-                    if (clickedBox.piece is King && clickedBox.piece is Rook) {
-                        clickedBox.piece.moved = true;
-                    } 
-                }
+                if (clickedBox.piece is King || clickedBox.piece is Rook) {
+                    clickedBox.piece.moved = true;
+                } 
+                
 
                 changePieces(board[xCoord, yCoord], clickedBox);
 
@@ -394,7 +407,7 @@ namespace Proiect_IA {
         }
 
         private void aiMove() {
-            MiniMaxMove mmMove = calcBestMove(4, currentPlayer.color);
+            MiniMaxMove mmMove = calcBestMove(3, currentPlayer.color);
 
             if (NoValidMove(board[mmMove.nextMove.x, mmMove.nextMove.y], board[mmMove.initialMove.x, mmMove.initialMove.y])) {
                 aiMove();
@@ -536,6 +549,11 @@ namespace Proiect_IA {
         }
 
         private bool NoValidMove(Box currentBox, Box clickedBox) {
+            Piece taken;
+            if (currentBox.piece != null)
+                taken = currentBox.piece;
+            else
+                taken = null;
             ResetBoard();
             doMoves(currentBox, clickedBox);
 
@@ -546,10 +564,14 @@ namespace Proiect_IA {
             if (board[piece.x, piece.y].nextLegalMove == true) {
                 ResetBoard();
                 undoMoves(currentBox, clickedBox);
+                if (taken != null)
+                    players[index % 2].pieces.Add(taken);
                 return true;
             }
             ResetBoard();
             undoMoves(currentBox, clickedBox);
+            if (taken != null)
+                players[index % 2].pieces.Add(taken);
             return false;
         }
 
